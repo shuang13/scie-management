@@ -1,0 +1,62 @@
+#content table {
+    padding-bottom: 20px;
+    width: 1100px;
+    font-size: 14px;
+} 
+#content table th, td {
+    padding: 5px 14px 5px 14px;
+    max-width: 140px;
+    font-weight: normal;
+    text-align:left;
+    overflow: hidden;
+    word-break:break-all;
+}
+#content table .operate a, .state a{
+    color: #06A2E9;
+}
+#content table .state a{
+    display: block;
+    color: #06A2E9;
+}
+
+.tb-40-wh{
+    width: 40px;
+    line-height: 25px;
+    text-align: center;
+    font-size: 14px;
+}
+.btn{
+    display: inline-block;
+    min-width: 50px;
+    line-height: 22px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px;
+     font-family: '宋体';
+}
+.btn:hover{
+    background: #6F6F6F;
+    color: #fff;
+}
+.btn-edit{}
+.btn-delete{
+    background: #D9534F;
+    color: #fff;
+}
+.fa{
+    margin: 2px 4px 0 0;
+}
+.btn-sort{
+    display: inline-block;
+    margin-left: 14px;
+    padding: 0 5px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.btn-sort:hover{
+    background: #6F6F6F;
+    color: #fff;
+}

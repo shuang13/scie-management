@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/create.css">
+
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <ul class="top-nav-left">
+                <li><a href="##">网站首页</a></li>
+                <li><a href="##">全站更新</a></li>
+            </ul>
+            <div class="top-nav-right">
+                <div class="dropdown-toggle">
+                    您好，admin <span class="tri"></span>
+                </div>
+                <ul class="user-nav">
+                    <li><a href="password.html">修改密码</a></li>
+                    <li><a href="home.html">修改个人信息</a></li>
+                    <li><a href="##">退出系统</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div id="sidebar">
+        <div class="logo">
+            
+        </div>
+        <ul class="side-nav">
+            <li><a href="index.html">栏目管理</a></li>
+            <li><a href="system.html">配置管理</a></li>
+            <li><a href="setting-group.html">配置设置</a></li>
+            <li><a href="copyfrom.html">来源管理</a></li>
+            <li><a href="user.html">管理员管理</a></li>
+            <li><a href="doc.html">内容管理</a></li>
+            <li><a href="link.html">友情链接</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <div class="page-header">
+            <p>用户设置</p>
+        </div>
+        <ul class="page-nav">
+           <li><a class="nav-active" href="home.html">修改个人资料</a></li>
+           <li><a href="password.html">修改密码</a></li>
+        </ul>
+        <div class="main"> 
+            <form action="##">
+                <div class="option">
+                    <label for="##">用户名:</label>
+                    <span>admin</span>
+                </div>
+                <div class="option">
+                    <label for="##">最后登录时间:</label>
+                    <span>2017-04-09 18:48:10</span>
+                </div>
+                <div class="option">
+                    <label for="##">最后登录IP:</label>
+                    <span>172.23.10.175</span>
+                </div>
+                <div class="option">
+                    <label for="##">真实姓名:</label>
+                    <input type="text" value="Peter Winter">                </div>
+                <div class="option">
+                    <label for="##">邮箱:</label>
+                    <input type="text" value="test@qq.com">
+                </div>
+                <div class="option">
+                    <button class="btn-submit" type="submit">确认</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+    <!-- jq库 -->
+    <script src="../lib/jquery.min.js"></script>
+    <!-- 顶栏控制 -->
+    <script src="js/header.js"></script>
+</body>
+</html>

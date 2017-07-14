@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <!-- jq库 -->
+    <script src="lib/jquery.min.js"></script>
+    <!-- 文件上传插件 -->
+    <script src="lib/jquery.form.js"></script>
+
+</head>
+<body>
+    <div class="cover">
+        <input type="file" id="doc-cover">
+        <input id="subbtn" type="submit" >  
+    </div>
+    <script>
+    // 文件上传
+    $('#subbtn').on('click', function (event) {
+                alert("失败");  
+        
+        var options = {   
+            type: 'post',  
+            url: "http://127.0.0.1:80/SCIEManagement/test/file/upload",  
+            success:function(ret) {   
+                alert("成功！");  
+            },  
+            error:function (responseText, statusText) {  
+                alert("失败");  
+            }  
+        };   
+        // pass options to ajaxForm   
+        $('#doc-cover').ajaxForm(options);  
+    });
+    </script>
+</body>
+
+</html>

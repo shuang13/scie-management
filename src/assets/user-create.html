@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="../lib/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/create.css">
+
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <ul class="top-nav-left">
+                <li><a href="##">网站首页</a></li>
+                <li><a href="##">全站更新</a></li>
+            </ul>
+            <div class="top-nav-right">
+                <div class="dropdown-toggle">
+                    您好，admin <span class="tri"></span>
+                </div>
+                <ul class="user-nav">
+                    <li><a href="password.html">修改密码</a></li>
+                    <li><a href="home.html">修改个人信息</a></li>
+                    <li><a href="##">退出系统</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div id="sidebar">
+        <div class="logo">
+            
+        </div>
+        <ul class="side-nav">
+            <li><a href="index.html">栏目管理</a></li>
+            <li><a href="system.html">配置管理</a></li>
+            <li><a href="setting-group.html">配置设置</a></li>
+            <li><a href="copyfrom.html">来源管理</a></li>
+            <li><a class="active" href="user.html">管理员管理</a></li>
+            <li><a href="doc.html">内容管理</a></li>
+            <li><a href="link.html">友情链接</a></li>
+        </ul>
+    </div>
+    <div id="content">
+        <div class="page-header">
+            <p>管理员管理</p>
+        </div>
+        <ul class="page-nav">
+           <li><a href="user.html">管理员管理</a></li>
+           <li><a class="nav-active" href="user-create.html">添加管理员</a></li>
+        </ul>
+        <div class="main"> 
+            <form action="##">
+                <div class="option">
+                    <label for="##">用户名:</label>
+                    <input type="text" id="##">
+                </div>
+                <div class="option">
+                    <label for="##">密码:</label>
+                    <input type="text" id="##">
+                </div>
+                <div class="option">
+                    <label for="##">确认密码:</label>
+                    <input type="text" id="##">
+                </div>
+                <div class="option">
+                    <label for="##">Email:</label>
+                    <input type="text" id="##">
+                </div>
+                <div class="option">
+                    <label for="##">真实姓名:</label>
+                    <input type="text" id="##">
+                </div>
+                <div class="option">
+                    <label for="##">所属角色:</label>
+                    <select id="##">
+                        <option value="" selected="selected">超级管理员</option>
+                        <option value="##">总编</option>
+                        <option value="##">编辑</option>
+                        <option value="##">运营总监</option>
+                        <option value="##">发布人员</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <button class="btn-submit" type="submit">确认添加</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+    <!-- jq库 -->
+    <script src="../lib/jquery.min.js"></script>
+    <!-- 顶栏控制 -->
+    <script src="js/header.js"></script>
+</body>
+</html>
