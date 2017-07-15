@@ -29,41 +29,24 @@ $(document).ready(function () {
 
     
 
-    // // 文件上传
-    // $('#doc-cover').on('click', function (event) {
-    //     event.preventDefault();
+    // 文件上传
+    $('#doc-cover').on('change', function (event) {
+                console.log(0);
 
-    //     var $file = $(this).siblings('input');
-    //     var $dataArea = $file.parent().siblings('input');
-    //     var uploadFileId = $file.attr('id');
-    //     var fileType = $file.parent().siblings('label').html();
-    //     var uploadUrl ='../index.php/site_manage/' +
-    //                  (fileType === 'tracert结果截图' ? 'file_upload' : 'dom_upload');
+        $.ajaxFileUpload({
+            url: 'http://127.0.0.1:80/SCIEManagement/file/category/upload',
+            secureuri: false,
+            fileElementId: 'doc-cover',
+            dataType: 'json',
+            success: function (data) {
+                if(typeof data === 'string') {
+                    data = JSON.parse(data);
+                }
+                console.log(data);
 
-    //     if($file[0].files.length < 1) {
-    //         $.notice('工单创建提示：', '请选择至少一个' + fileType);
-    //         return;
-    //     }
-
-    //     loading.start(fileType + '上传提示：');
-
-    //     $.ajaxFileUpload({
-    //         url: uploadUrl,
-    //         secureuri: false,
-    //         fileElementId: uploadFileId,
-    //         dataType: 'json',
-    //         success: function (data) {
-    //             if(typeof data === 'string') {
-    //                 data = JSON.parse(data);
-    //             }
-
-    //             window.data = data;
-
-    //             $dataArea.val(data.path);
-    //             $.notice( fileType + '上传提示：', '上传成功！');
-    //         }
-    //     }); 
-    // });
+            }
+        }); 
+    });
 
     // 提交创建
     $('.btn-submit').on('click', function (event) {
