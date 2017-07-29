@@ -1,8 +1,7 @@
 require ('!style-loader!css-loader!sass-loader!../../../public-resource/css/components-dir/base.scss');
-$(document).ready(function () {
-    $('#doc-cover').filestyle({buttonText: "浏览"});
-    
-    // 获取栏目信息
+var user = {}; //全局对象
+// 表单初始化
+user.formInit = function () {
     $.post('http://127.0.0.1:80/SCIEManagement/category/manage', function (data) {
         if(typeof data === 'string') {
             data = JSON.parse(data);
@@ -25,78 +24,97 @@ $(document).ready(function () {
             }
             $('#pid').html(str);
         }
-        else alert("服务器连接失败");
+        else $.notice("提示！", "服务器连接失败!");
     });
+}
+// 文件上传
+user.fileUpload = function () {
+    $.ajaxFileUpload({
+        url: 'http://127.0.0.1:80/SCIEManagement/file/category/upload',
+        secureuri: false,
+        fileElementId: 'doc-cover',
+        beforeSend: $.notice('提示！', '正在提交...', function () {
+            user.loading($('.jq-notice-context'));
+        }),
+        dataType: 'json',
+        success: function (data) {
+            $('.jq-notice-context').html('上传成功!');
+            setTimeout('$.closeNotice()',2000); 
 
+            console.log($("#doc-cover").val());
+        }
+    }); 
+}
+// 表单提交
+user.submit = function () {
+    event.preventDefault();
+    var ajaxArgs = {
+
+        pid: $('#pid').val(),
+        title: $('#doc-title').val(),
+        url: $('#link-url').val(),
+        type: "link",
+        cover: $("#doc-cover").val()
+
+    };
+    console.log(ajaxArgs);
+    if(!user.validate(ajaxArgs)) {
+        return false;
+    }    
+    $.ajax({
+        type: 'POST',
+        url: 'http://127.0.0.1:80/SCIEManagement/category/add/url',
+        beforeSend: $.notice('提示！', '正在提交...', function () {
+            user.loading($('.jq-notice-context'));
+        }),
+        data: ajaxArgs,
+        success: function(data){
+            if(typeof data === 'string') {
+                data = JSON.parse(data);
+            }
+            var status = data.code;//状态码
+
+            if(status == 200) {
+                $('.jq-notice-context').html('提交成功!');
+                setTimeout('window.location.href = "../index/page.html"',2000); 
+            } else {
+                $('.jq-notice-context').html('提交失败!');
+            }
+        }
+    });
+}
+// 表单验证
+user.validate = function (ajaxArgs) {
+    var titleCheck = /[^x00-xff]/;
+    console.log(titleCheck.test(ajaxArgs.title));
+    if (!titleCheck.test(ajaxArgs.title)) {
+        $.notice("提示！", "内容不能为空！");
+
+        return false;
+    }
     
+    var rCheckSpace = /^\s+$/;
+    if (rCheckSpace.test(ajaxArgs.url)) {
+        $.notice("提示！", "内容不能为空！");
 
+        return false;
+    }
+    return true;
+}
+// 加载图标
+user.loading = function (element) {
+    var loadingHtml = '<div id="loading" style="background:url(../../../public-resource/imgs/loading.gif) no-repeat;"></div>';
+    element.html(loadingHtml);
+}
+$(document).ready(function () {
+    $('#doc-cover').filestyle({buttonText: "浏览"});
+    // 侧栏添加active
+    $('.side-nav li').eq(0).find('a').addClass('active');    
+    // 初始化
+    user.formInit();
     // 文件上传
-    $('#doc-cover').on('change', function (event) {
-                console.log(0);
-
-        $.ajaxFileUpload({
-            url: 'http://127.0.0.1:80/SCIEManagement/file/category/upload',
-            secureuri: false,
-            fileElementId: 'doc-cover',
-            dataType: 'json',
-            success: function (data) {
-                if(typeof data === 'string') {
-                    data = JSON.parse(data);
-                }
-                console.log(data);
-
-            }
-        }); 
-    });
-
-    // 提交创建
-    $('.btn-submit').on('click', function (event) {
-        event.preventDefault();
-        var ajaxArgs = {
-            pid: $('#pid').val(),
-            title: $('#doc-title').val(),
-            url: $('#link-url').val(),
-            type: "link"
-        };
-        console.log(ajaxArgs);
-        var titleCheck = /[^x00-xff]/;
-        console.log(titleCheck.test(ajaxArgs.title));
-        if (!titleCheck.test(ajaxArgs.title)) {
-            alert("栏目名称为中文，且不能为空！");
-            return false;
-        }
-        
-        var rCheckSpace = /^\s+$/;
-        if (rCheckSpace.test(ajaxArgs.url)) {
-            alert("内容不能为空！");
-            return false;
-        }
-        $.ajax({
-            type: 'POST',
-            url: 'http://127.0.0.1:80/SCIEManagement/category/add/url',
-            data: ajaxArgs,
-            success: function(data){
-                if(typeof data === 'string') {
-                    data = JSON.parse(data);
-                }
-                var status = data.code;//状态码
-
-                if(status == 200) {
-                    alert("提交成功！");
-                    location.reload();
-                } else {
-                    alert("提交失败，无法连接服务器！");
-                }
-            }
-        });
-    });
+    $('#doc-cover').on('change', user.fileUpload);
+    // 表单提交
+    $('.btn-submit').on('click', user.submit);
 });
 
-// var loading = {
-//     state: false,
-//     start: function (title) {
-//         $.notice(title, '<div style="text-align:center;">文件上传中...</div><img style="display:block;width:150px;margin:30px auto 0 auto;' +
-//             'border-radius:10px;" src="image/loading.gif" />');
-//     },
-//     stop: $.closeNotice
-// };

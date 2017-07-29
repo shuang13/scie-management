@@ -11,12 +11,12 @@
     outline: none;
     border: none;
     border-radius: 5px;
-}
-.btn-submit:hover{
-    opacity: 0.8;
-}
-.btn-submit:active{
-    color: #000;
+    &:hover{
+        opacity: 0.8;
+    }
+    &:active{
+        color: #000;
+    }
 }
 .btn-sort{
     display: inline-block;
@@ -26,10 +26,10 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     cursor: pointer;
-}
-.btn-sort:hover{
-    background: #6F6F6F;
-    color: #fff;
+    &hover{
+        background: #6F6F6F;
+        color: #fff;
+    }
 }
 .btn-delete, .btn-edit{
     display: inline-block;
@@ -62,4 +62,11 @@
     line-height: 25px;
     text-align: center;
     font-size: 14px;
+}
+#loading{
+    display:block;
+    height:32px;
+    width:32px;
+    margin:30px;
+
 }

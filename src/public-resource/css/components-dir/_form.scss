@@ -76,11 +76,11 @@ input:focus, select:focus, textarea:focus{
 }
 .cover{
     display: inline-block;
-}
-.cover .buttonText{
-    outline: none;
-    cursor: pointer;
-}
-.cover .form-control{
-    cursor: not-allowed;
+        .buttonText{
+        outline: none;
+        cursor: pointer;
+    }
+    .form-control{
+        cursor: not-allowed;
+    }
 }
