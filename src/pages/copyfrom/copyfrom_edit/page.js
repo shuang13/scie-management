@@ -1,6 +1,4 @@
-require ('!style-loader!css-loader!sass-loader!../../../public-resource/css/components-dir/base.scss');
-
-var user = {}; //全局对象
+var user = require('../../commons/common.js');
 
 // 更新数据
 user.update = function(data) {
@@ -41,7 +39,7 @@ user.submit = function (event) {
     // 更新
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:8080/SCIEManagement/copyfrom/update',
+        url: user.SERVER_URL + 'copyfrom/update',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -62,25 +60,19 @@ user.submit = function (event) {
     });
 
 }
-// 加载图标
-user.loading = function (element) {
-    var loadingHtml = '<div id="loading" style="background:url(../../../public-resource/imgs/loading.gif) no-repeat;"></div>';
-    element.html(loadingHtml);
-}
-
 $(document).ready(function () {
     // 获取编辑文字id
     var urlinfo = window.location.href;
     var id = urlinfo.split("?")[1].split("=")[1];
     // 侧栏添加active
-    $('.side-nav li').eq(0).find('a').addClass('active');
+    $('.side-nav li').eq(3).find('a').addClass('active');
     var ajaxArgs = {
         id: id
     }
     // 获取栏目信息
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:80/SCIEManagement/copyfrom/find",
+        url: user.SERVER_URL + 'copyfrom/find',
         data: ajaxArgs,
         success: function (data) {
             var status = data.code;//状态码
@@ -89,16 +81,14 @@ $(document).ready(function () {
             if (status == 200) {
                 var aaData = data.copyfroms.copyfrom;
 
-                user.update(aaData);
-                console.log(aaData);
+                user.update(aaData[0]);
+                console.log(data);
 
             }
             else $.notice("提示！","服务器连接失败!");
         }
     });
 
-    // 文件上传
-    $('#doc-cover').on('change', user.fileUpload);
     // 表单提交
     $('.btn-submit').on('click', user.submit);
    

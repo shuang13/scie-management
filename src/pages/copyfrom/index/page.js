@@ -1,6 +1,4 @@
-require ('!style-loader!css-loader!sass-loader!../../../public-resource/css/components-dir/base.scss');
-
-var user = {}; //全局对象
+var user = require('../../commons/common.js');
 // 解析数据
 user.parseData = function(data) {
     var formdata = [];
@@ -56,7 +54,7 @@ user.delete = function(event) {
                 }
                 $.ajax({
                     type: "POST",
-                    url: "http://127.0.0.1:80/SCIEManagement/copyfrom/delete",
+                    url: user.SERVER_URL + '/copyfrom/delete',
                     beforeSend: user.loading($('.jq-notice-context')),
                     data: ajaxArgs,
                     success: function (data) {
@@ -80,11 +78,6 @@ user.delete = function(event) {
     
 }
 
-// 加载图标
-user.loading = function (element) {
-    var loadingHtml = '<div id="loading" style="background:url(../../../public-resource/imgs/loading.gif) no-repeat;"></div>';
-    element.html(loadingHtml);
-}
 
 $(document).ready(function () {
     // 侧栏添加active
@@ -92,7 +85,7 @@ $(document).ready(function () {
     $.ajax({
         type: "POST",
         beforeSend: user.loading($('tbody')),
-        url: "http://127.0.0.1:80/SCIEManagement/copyfrom/index",
+        url: user.SERVER_URL + '/copyfrom/index',
         success: function(data){
             if(typeof data == 'string') {
                 data = JSON.parse(data);

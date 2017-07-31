@@ -1,5 +1,4 @@
-require ('!style-loader!css-loader!sass-loader!../../../public-resource/css/components-dir/base.scss');
-var user = {}; //全局对象
+var user = require('../../commons/common.js');
 
 // 表单提交
 user.submit = function () {
@@ -15,7 +14,7 @@ user.submit = function () {
     }
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:80/SCIEManagement/copyfrom/add',
+        url: user.SERVER_URL + '/copyfrom/add',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -48,12 +47,6 @@ user.validate = function (ajaxArgs) {
     }
     return true;
 }
-// 加载图标
-user.loading = function (element) {
-    var loadingHtml = '<div id="loading" style="background:url(../../../public-resource/imgs/loading.gif) no-repeat;"></div>';
-    element.html(loadingHtml);
-}
-
 $(document).ready(function () {
     // 侧栏添加active
     $('.side-nav li').eq(3).find('a').addClass('active');

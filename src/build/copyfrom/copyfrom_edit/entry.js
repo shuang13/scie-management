@@ -60,17 +60,45 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 14);
+/******/ 	return __webpack_require__(__webpack_require__.s = 17);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+__webpack_require__ (1);
+var session = __webpack_require__(7);
+var user = {}; //全局对象
+user.session = session;
+user.SERVER_URL = 'http://127.0.0.1:80/SCIEManagement';
+// 加载图标
+user.loading = function (element) {
+    var loadingHtml = '<div id="loading"></div>';
+    element.html(loadingHtml);
+}
+
+$(function () {
+    $('.dropdown-toggle').on('mouseenter', function () {
+        $('.user-nav').slideDown("100");
+    });
+    $('.top-nav-right').on('mouseleave', function () {
+        if ($('.user-nav').show()) {
+            $('.user-nav').hide();
+        }
+    });
+});
+module.exports = user;
+
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1);
+var content = __webpack_require__(2);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -78,7 +106,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(3)(content, options);
+var update = __webpack_require__(5)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -95,21 +123,21 @@ if(false) {
 }
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(2)(undefined);
+exports = module.exports = __webpack_require__(3)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\nbody {\n  font-family: \"Adobe \\9ED1\\4F53   Std\"; }\n\na {\n  text-decoration: none;\n  color: #000; }\n\nli {\n  float: left;\n  list-style: none; }\n\n/*顶栏*/\nheader {\n  position: fixed;\n  padding-left: 200px;\n  width: 100%;\n  height: 50px;\n  background: #313239;\n  z-index: 99; }\n  header .top-nav-left {\n    float: left; }\n    header .top-nav-left a {\n      display: inline-block;\n      min-width: 80px;\n      height: 50px;\n      line-height: 50px;\n      text-align: center;\n      font-size: 14px;\n      color: #fff; }\n      header .top-nav-left a:hover {\n        background: #fff;\n        color: #26272C; }\n  header .top-nav-right {\n    float: right; }\n    header .top-nav-right .user-nav {\n      display: none;\n      position: fixed; }\n  header .dropdown-toggle {\n    display: inline-block;\n    width: 120px;\n    height: 50px;\n    line-height: 50px;\n    text-align: center;\n    font-size: 14px;\n    color: #fff;\n    cursor: pointer; }\n    header .dropdown-toggle .tri {\n      display: inline-block;\n      margin-left: 2px;\n      border: 4px solid transparent;\n      width: 0;\n      border-top: 4px solid #fff; }\n\n.user-nav li:last-child a {\n  border-radius: 0 0 5px 5px; }\n\n.user-nav a {\n  display: inline-block;\n  width: 120px;\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n  font-size: 14px;\n  background: #313239;\n  color: #fff; }\n  .user-nav a:hover {\n    background: #fff;\n    color: #26272C; }\n\n/*侧栏*/\n#sidebar {\n  position: fixed;\n  width: 200px;\n  height: 100%;\n  background: #313239;\n  z-index: 999; }\n  #sidebar .logo {\n    width: 200px;\n    height: 50px;\n    border-bottom: 1px solid #000; }\n  #sidebar .side-nav {\n    margin-top: 100px; }\n    #sidebar .side-nav a {\n      display: inline-block;\n      padding-left: 30px;\n      width: 200px;\n      height: 48px;\n      border-left: 6px solid transparent;\n      line-height: 48px;\n      color: #fff; }\n      #sidebar .side-nav a:hover {\n        background: #26272C; }\n    #sidebar .side-nav .active {\n      border-left: 5px solid #66BAF6;\n      background: #26272C; }\n\n/*主体容器*/\n#content {\n  padding-left: 200px;\n  width: 100%;\n  height: 100%;\n  z-index: 9;\n  overflow-x: hidden; }\n  #content .page-header {\n    padding-top: 50px;\n    padding-left: 39px;\n    min-width: 600px;\n    border-bottom: 1px solid #ccc;\n    line-height: 50px; }\n    #content .page-header p {\n      font-size: 20px; }\n  #content .page-nav {\n    margin: 20px 0 20px 39px;\n    width: 1100px;\n    height: 46px;\n    line-height: 46px;\n    border-top: 1px solid #E4E4E4; }\n    #content .page-nav a {\n      display: block;\n      padding: 0 20px;\n      height: 46px;\n      text-align: center;\n      font-size: 16px; }\n  #content .nav-active {\n    border-top: 1px solid #66BAF6; }\n\n.main {\n  min-width: 1100px;\n  padding-left: 39px;\n  padding-bottom: 139px; }\n  .main .search label {\n    display: inline-block;\n    padding: 10px;\n    line-height: 30px;\n    text-align: center; }\n\n.btn-submit {\n  margin: 20px 0 0 155px;\n  width: 130px;\n  height: 33px;\n  background: #313131;\n  color: #fff;\n  text-align: center;\n  font-size: 14px;\n  line-height: 33px;\n  cursor: pointer;\n  outline: none;\n  border: none;\n  border-radius: 5px; }\n  .btn-submit:hover {\n    opacity: 0.8; }\n  .btn-submit:active {\n    color: #000; }\n\n.btn-sort {\n  display: inline-block;\n  margin-left: 14px;\n  padding: 0 5px;\n  font-size: 14px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  cursor: pointer; }\n  .btn-sorthover {\n    background: #6F6F6F;\n    color: #fff; }\n\n.btn-delete, .btn-edit {\n  display: inline-block;\n  min-width: 50px;\n  line-height: 22px;\n  text-align: center;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  font-size: 12px;\n  font-family: '\\5B8B\\4F53'; }\n  .btn-delete:hover, .btn-edit:hover {\n    background: #6F6F6F;\n    color: #fff; }\n\n.btn-delete {\n  background: #D9534F;\n  color: #fff; }\n\n#content table .operate a, .state a {\n  color: #06A2E9; }\n\n#content table .state a {\n  display: block;\n  color: #06A2E9; }\n\n.tb-40-wh {\n  width: 40px;\n  line-height: 25px;\n  text-align: center;\n  font-size: 14px; }\n\n#loading {\n  display: block;\n  height: 32px;\n  width: 32px;\n  margin: 30px; }\n\n#content table {\n  padding-bottom: 20px;\n  width: 1100px;\n  font-size: 14px; }\n\n#content table th, td {\n  padding: 5px 14px 5px 14px;\n  max-width: 140px;\n  font-weight: normal;\n  text-align: left;\n  overflow: hidden;\n  word-break: break-all; }\n\n.fa {\n  margin: 2px 4px 0 0; }\n\n.main .search input {\n  padding: 6px 12px;\n  height: 34px;\n  font-size: 14px; }\n\n.main .search select {\n  padding: 6px 12px; }\n\ninput, select, textarea {\n  border: 1px solid #ccc; }\n\ninput:focus, select:focus, textarea:focus {\n  border: 1px solid #66BAF6;\n  outline: none; }\n\n.main .option {\n  line-height: 45px; }\n\n.form-label {\n  display: inline-block;\n  margin-right: 10px;\n  width: 140px;\n  text-align: right; }\n\ninput, select, textarea {\n  border: 1px solid #ccc; }\n\ninput:focus, select:focus, textarea:focus {\n  border: 1px solid #66BAF6;\n  outline: none; }\n\n.option input[type=\"text\"] {\n  padding: 6px 12px;\n  height: 34px;\n  font-size: 14px; }\n\n.option input[type=\"radio\"] {\n  margin: 0 10px; }\n\n.option input[type=\"checkbox\"] {\n  margin: 0 10px; }\n\n.option select {\n  padding: 6px 12px; }\n\n.option textarea {\n  padding: 6px 10px;\n  width: 460px;\n  height: 60px;\n  vertical-align: text-top;\n  resize: none; }\n\n.option .wrapper {\n  display: inline-block;\n  width: 650px; }\n\n.option span {\n  display: inline-block; }\n\n.editor-box {\n  margin: -30px 0 0 155px; }\n\n#editor_id {\n  width: 700px;\n  height: 600px; }\n\n.cover-img {\n  display: inline-block;\n  vertical-align: text-top;\n  width: 180px;\n  height: 125px;\n  border: 1px solid #ccc; }\n\n.cover {\n  display: inline-block; }\n  .cover .buttonText {\n    outline: none;\n    cursor: pointer; }\n  .cover .form-control {\n    cursor: not-allowed; }\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\nbody {\n  font-family: \"Adobe \\9ED1\\4F53   Std\"; }\n\na {\n  text-decoration: none;\n  color: #000; }\n\nli {\n  float: left;\n  list-style: none; }\n\n/*顶栏*/\nheader {\n  position: fixed;\n  padding-left: 200px;\n  width: 100%;\n  height: 50px;\n  background: #313239;\n  z-index: 99; }\n  header .top-nav-left {\n    float: left; }\n    header .top-nav-left a {\n      display: inline-block;\n      min-width: 80px;\n      height: 50px;\n      line-height: 50px;\n      text-align: center;\n      font-size: 14px;\n      color: #fff; }\n      header .top-nav-left a:hover {\n        background: #fff;\n        color: #26272C; }\n  header .top-nav-right {\n    float: right; }\n    header .top-nav-right .user-nav {\n      display: none;\n      position: fixed; }\n  header .dropdown-toggle {\n    display: inline-block;\n    width: 120px;\n    height: 50px;\n    line-height: 50px;\n    text-align: center;\n    font-size: 14px;\n    color: #fff;\n    cursor: pointer; }\n    header .dropdown-toggle .tri {\n      display: inline-block;\n      margin-left: 2px;\n      border: 4px solid transparent;\n      width: 0;\n      border-top: 4px solid #fff; }\n\n.user-nav li:last-child a {\n  border-radius: 0 0 5px 5px; }\n\n.user-nav a {\n  display: inline-block;\n  width: 120px;\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n  font-size: 14px;\n  background: #313239;\n  color: #fff; }\n  .user-nav a:hover {\n    background: #fff;\n    color: #26272C; }\n\n/*侧栏*/\n#sidebar {\n  position: fixed;\n  width: 200px;\n  height: 100%;\n  background: #313239;\n  z-index: 999; }\n  #sidebar .logo {\n    width: 200px;\n    height: 50px;\n    border-bottom: 1px solid #000; }\n  #sidebar .side-nav {\n    margin-top: 100px; }\n    #sidebar .side-nav a {\n      display: inline-block;\n      padding-left: 30px;\n      width: 200px;\n      height: 48px;\n      border-left: 6px solid transparent;\n      line-height: 48px;\n      color: #fff; }\n      #sidebar .side-nav a:hover {\n        background: #26272C; }\n    #sidebar .side-nav .active {\n      border-left: 5px solid #66BAF6;\n      background: #26272C; }\n\n/*主体容器*/\n#content {\n  padding-left: 200px;\n  width: 100%;\n  height: 100%;\n  z-index: 9;\n  overflow-x: hidden; }\n  #content .page-header {\n    padding-top: 50px;\n    padding-left: 39px;\n    min-width: 600px;\n    border-bottom: 1px solid #ccc;\n    line-height: 50px; }\n    #content .page-header p {\n      font-size: 20px; }\n  #content .page-nav {\n    margin: 20px 0 20px 39px;\n    width: 1100px;\n    height: 46px;\n    line-height: 46px;\n    border-top: 1px solid #E4E4E4; }\n    #content .page-nav a {\n      display: block;\n      padding: 0 20px;\n      height: 46px;\n      text-align: center;\n      font-size: 16px; }\n  #content .nav-active {\n    border-top: 1px solid #66BAF6; }\n\n.main {\n  min-width: 1100px;\n  padding-left: 39px;\n  padding-bottom: 139px; }\n  .main .search label {\n    display: inline-block;\n    padding: 10px;\n    line-height: 30px;\n    text-align: center; }\n\n.btn-submit {\n  margin: 20px 0 0 155px;\n  width: 130px;\n  height: 33px;\n  background: #313131;\n  color: #fff;\n  text-align: center;\n  font-size: 14px;\n  line-height: 33px;\n  cursor: pointer;\n  outline: none;\n  border: none;\n  border-radius: 5px; }\n  .btn-submit:hover {\n    opacity: 0.8; }\n  .btn-submit:active {\n    color: #000; }\n\n.btn-sort {\n  display: inline-block;\n  margin-left: 14px;\n  padding: 0 5px;\n  font-size: 14px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  cursor: pointer; }\n  .btn-sorthover {\n    background: #6F6F6F;\n    color: #fff; }\n\n.btn-delete, .btn-edit {\n  display: inline-block;\n  min-width: 50px;\n  line-height: 22px;\n  text-align: center;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  font-size: 12px;\n  font-family: '\\5B8B\\4F53'; }\n  .btn-delete:hover, .btn-edit:hover {\n    background: #6F6F6F;\n    color: #fff; }\n\n.btn-delete {\n  background: #D9534F;\n  color: #fff; }\n\n#content table .operate a, .state a {\n  color: #06A2E9; }\n\n#content table .state a {\n  display: block;\n  color: #06A2E9; }\n\n.tb-40-wh {\n  width: 40px;\n  line-height: 25px;\n  text-align: center;\n  font-size: 14px; }\n\n#loading {\n  display: block;\n  height: 32px;\n  width: 32px;\n  margin: 30px;\n  background: url(" + __webpack_require__(4) + ") no-repeat; }\n\n#content table {\n  padding-bottom: 20px;\n  width: 1100px;\n  font-size: 14px; }\n\n#content table th, td {\n  padding: 5px 14px 5px 14px;\n  max-width: 140px;\n  font-weight: normal;\n  text-align: left;\n  overflow: hidden;\n  word-break: break-all; }\n\n.fa {\n  margin: 2px 4px 0 0; }\n\n.main .search input {\n  padding: 6px 12px;\n  height: 34px;\n  font-size: 14px; }\n\n.main .search select {\n  padding: 6px 12px; }\n\ninput, select, textarea {\n  border: 1px solid #ccc; }\n\ninput:focus, select:focus, textarea:focus {\n  border: 1px solid #66BAF6;\n  outline: none; }\n\n.main .option {\n  line-height: 45px; }\n\n.form-label {\n  display: inline-block;\n  margin-right: 10px;\n  width: 140px;\n  text-align: right; }\n\ninput, select, textarea {\n  border: 1px solid #ccc; }\n\ninput:focus, select:focus, textarea:focus {\n  border: 1px solid #66BAF6;\n  outline: none; }\n\n.option input[type=\"text\"] {\n  padding: 6px 12px;\n  height: 34px;\n  font-size: 14px; }\n\n.option input[type=\"radio\"] {\n  margin: 0 10px; }\n\n.option input[type=\"checkbox\"] {\n  margin: 0 10px; }\n\n.option select {\n  padding: 6px 12px; }\n\n.option textarea {\n  padding: 6px 10px;\n  width: 460px;\n  height: 60px;\n  vertical-align: text-top;\n  resize: none; }\n\n.option .wrapper {\n  display: inline-block;\n  width: 650px; }\n\n.option span {\n  display: inline-block; }\n\n.editor-box {\n  margin: -30px 0 0 155px; }\n\n#editor_id {\n  width: 700px;\n  height: 600px; }\n\n.cover-img {\n  display: inline-block;\n  vertical-align: text-top;\n  width: 180px;\n  height: 125px;\n  border: 1px solid #ccc; }\n\n.cover {\n  display: inline-block; }\n  .cover .buttonText {\n    outline: none;\n    cursor: pointer; }\n  .cover .form-control {\n    cursor: not-allowed; }\n", ""]);
 
 // exports
 
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports) {
 
 /*
@@ -191,7 +219,13 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 3 */
+/* 4 */
+/***/ (function(module, exports) {
+
+module.exports = "data:image/png;base64,R0lGODlhIAAgALMAAP///7Ozs/v7+9bW1uHh4fLy8rq6uoGBgTQ0NAEBARsbG8TExJeXl/39/VRUVAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFBQAAACwAAAAAIAAgAAAE5xDISSlLrOrNp0pKNRCdFhxVolJLEJQUoSgOpSYT4RowNSsvyW1icA16k8MMMRkCBjskBTFDAZyuAEkqCfxIQ2hgQRFvAQEEIjNxVDW6XNE4YagRjuBCwe60smQUDnd4Rz1ZAQZnFAGDd0hihh12CEE9kjAEVlycXIg7BAsMB6SlnJ87paqbSKiKoqusnbMdmDC2tXQlkUhziYtyWTxIfy6BE8WJt5YEvpJivxNaGmLHT0VnOgGYf0dZXS7APdpB309RnHOG5gDqXGLDaC457D1zZ/V/nmOM82XiHQjYKhKP1oZmADdEAAAh+QQFBQAAACwAAAAAGAAXAAAEchDISasKNeuJFKoHs4mUYlJIkmjIV54Soypsa0wmLSnqoTEtBw52mG0AjhYpBxioEqRNy8V0qFzNw+GGwlJki4lBqx1IBgjMkRIghwjrzcDti2/Gh7D9qN774wQGAYOEfwCChIV/gYmDho+QkZKTR3p7EQAh+QQFBQAAACwBAAAAHQAOAAAEchDISWdANesNHHJZwE2DUSEo5SjKKB2HOKGYFLD1CB/DnEoIlkti2PlyuKGEATMBaAACSyGbEDYD4zN1YIEmh0SCQQgYehNmTNNaKsQJXmBuuEYPi9ECAU/UFnNzeUp9VBQEBoFOLmFxWHNoQw6RWEocEQAh+QQFBQAAACwHAAAAGQARAAAEaRDICdZZNOvNDsvfBhBDdpwZgohBgE3nQaki0AYEjEqOGmqDlkEnAzBUjhrA0CoBYhLVSkm4SaAAWkahCFAWTU0A4RxzFWJnzXFWJJWb9pTihRu5dvghl+/7NQmBggo/fYKHCX8AiAmEEQAh+QQFBQAAACwOAAAAEgAYAAAEZXCwAaq9ODAMDOUAI17McYDhWA3mCYpb1RooXBktmsbt944BU6zCQCBQiwPB4jAihiCK86irTB20qvWp7Xq/FYV4TNWNz4oqWoEIgL0HX/eQSLi69boCikTkE2VVDAp5d1p0CW4RACH5BAUFAAAALA4AAAASAB4AAASAkBgCqr3YBIMXvkEIMsxXhcFFpiZqBaTXisBClibgAnd+ijYGq2I4HAamwXBgNHJ8BEbzgPNNjz7LwpnFDLvgLGJMdnw/5DRCrHaE3xbKm6FQwOt1xDnpwCvcJgcJMgEIeCYOCQlrF4YmBIoJVV2CCXZvCooHbwGRcAiKcmFUJhEAIfkEBQUAAAAsDwABABEAHwAABHsQyAkGoRivELInnOFlBjeM1BCiFBdcbMUtKQdTN0CUJru5NJQrYMh5VIFTTKJcOj2HqJQRhEqvqGuU+uw6AwgEwxkOO55lxIihoDjKY8pBoThPxmpAYi+hKzoeewkTdHkZghMIdCOIhIuHfBMOjxiNLR4KCW1ODAlxSxEAIfkEBQUAAAAsCAAOABgAEgAABGwQyEkrCDgbYvvMoOF5ILaNaIoGKroch9hacD3MFMHUBzMHiBtgwJMBFolDB4GoGGBCACKRcAAUWAmzOWJQExysQsJgWj0KqvKalTiYPhp1LBFTtp10Is6mT5gdVFx1bRN8FTsVCAqDOB9+KhEAIfkEBQUAAAAsAgASAB0ADgAABHgQyEmrBePS4bQdQZBdR5IcHmWEgUFQgWKaKbWwwSIhc4LonsXhBSCsQoOSScGQDJiWwOHQnAxWBIYJNXEoFCiEWDI9jCzESey7GwMM5doEwW4jJoypQQ743u1WcTV0CgFzbhJ5XClfHYd/EwZnHoYVDgiOfHKQNREAIfkEBQUAAAAsAAAPABkAEQAABGeQqUQruDjrW3vaYCZ5X2ie6EkcKaooTAsi7ytnTq046BBsNcTvItz4AotMwKZBIC6H6CVAJaCcT0CUBTgaTg5nTCu9GKiDEMPJg5YBBOpwlnVzLwtqyKnZagZWahoMB2M3GgsHSRsRACH5BAUFAAAALAEACAARABgAAARcMKR0gL34npkUyyCAcAmyhBijkGi2UW02VHFt33iu7yiDIDaD4/erEYGDlu/nuBAOJ9Dvc2EcDgFAYIuaXS3bbOh6MIC5IAP5Eh5fk2exC4tpgwZyiyFgvhEMBBEAIfkEBQUAAAAsAAACAA4AHQAABHMQyAnYoViSlFDGXBJ808Ep5KRwV8qEg+pRCOeoioKMwJK0Ekcu54h9AoghKgXIMZgAApQZcCCu2Ax2O6NUud2pmJcyHA4L0uDM/ljYDCnGfGakJQE5YH0wUBYBAUYfBIFkHwaBgxkDgX5lgXpHAXcpBIsRADs="
+
+/***/ }),
+/* 5 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -237,7 +271,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(4);
+var	fixUrls = __webpack_require__(6);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -550,7 +584,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 4 */
+/* 6 */
 /***/ (function(module, exports) {
 
 
@@ -645,21 +679,59 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 5 */,
-/* 6 */,
-/* 7 */,
+/* 7 */
+/***/ (function(module, exports) {
+
+/* 通过sessionStorage检查和设置浏览器端的登录状态
+ * 暴露到全局的只有一个session对象
+ * session对象拥有getLoginState/setLoginState两个方法
+ */
+    var session = {};
+    session.getUserId = '1';
+    /* 获取当前登录状态
+    * @method window.session.getLoginState
+    * @param 无
+    * @return {false|String} state|userInfo，未登录则返回false，已登录则返回对应的用户信息
+    */
+    session.getLoginState = function () {
+        var state = sessionStorage.getItem('loginState');
+        if(state) {
+            return JSON.parse(state);
+        } else {
+            return false;
+        }
+    };
+
+    /* 修改当前登录状态
+    * @method window.session.setLoginState
+    * @param {false|String} state|userInfo，退出登录则输入false，设置登录账户则输入对应的用户信息
+    * @return 无
+    */
+    session.setLoginState = function (userInfo) {
+        if(userInfo !== false) {
+            sessionStorage.setItem('loginState', JSON.stringify(userInfo));
+        } else {
+            sessionStorage.removeItem('loginState');
+        }
+    };
+
+module.exports = session;
+
+
+/***/ }),
 /* 8 */,
 /* 9 */,
 /* 10 */,
 /* 11 */,
 /* 12 */,
 /* 13 */,
-/* 14 */
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__ (0);
-
-var user = {}; //全局对象
+var user = __webpack_require__(0);
 
 // 更新数据
 user.update = function(data) {
@@ -700,7 +772,7 @@ user.submit = function (event) {
     // 更新
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:8080/SCIEManagement/copyfrom/update',
+        url: user.SERVER_URL + 'copyfrom/update',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -721,25 +793,19 @@ user.submit = function (event) {
     });
 
 }
-// 加载图标
-user.loading = function (element) {
-    var loadingHtml = '<div id="loading" style="background:url(../../../public-resource/imgs/loading.gif) no-repeat;"></div>';
-    element.html(loadingHtml);
-}
-
 $(document).ready(function () {
     // 获取编辑文字id
     var urlinfo = window.location.href;
     var id = urlinfo.split("?")[1].split("=")[1];
     // 侧栏添加active
-    $('.side-nav li').eq(0).find('a').addClass('active');
+    $('.side-nav li').eq(3).find('a').addClass('active');
     var ajaxArgs = {
         id: id
     }
     // 获取栏目信息
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:80/SCIEManagement/copyfrom/find",
+        url: user.SERVER_URL + 'copyfrom/find',
         data: ajaxArgs,
         success: function (data) {
             var status = data.code;//状态码
@@ -748,16 +814,14 @@ $(document).ready(function () {
             if (status == 200) {
                 var aaData = data.copyfroms.copyfrom;
 
-                user.update(aaData);
-                console.log(aaData);
+                user.update(aaData[0]);
+                console.log(data);
 
             }
             else $.notice("提示！","服务器连接失败!");
         }
     });
 
-    // 文件上传
-    $('#doc-cover').on('change', user.fileUpload);
     // 表单提交
     $('.btn-submit').on('click', user.submit);
    

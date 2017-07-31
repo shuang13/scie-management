@@ -1,10 +1,12 @@
-require ('!style-loader!css-loader!sass-loader!../../../public-resource/css/components-dir/base.scss');
-var user = {}; //全局对象
+var user = require('../../commons/common.js');
+var my_id = user.session.getUserId;
 
 // 表单提交
 user.submit = function () {
     event.preventDefault();
+
     var ajaxArgs = {
+        my_id: my_id,
         username: $('#username').val(),
         realname: $('#realname').val(),
         email: $('#email').val(),
@@ -14,17 +16,19 @@ user.submit = function () {
         realname: $('#realname').val()
     };
     console.log(ajaxArgs);
+    
     if(!user.validate(ajaxArgs)) {
         return false;
     }
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:80/SCIEManagement/admin/manage/add',
+        url: user.SERVER_URL + '/admin/manage/add',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
         data: ajaxArgs,
         success: function(data){
+            console.log(data);
             if(typeof data === 'string') {
                 data = JSON.parse(data);
             }
@@ -67,15 +71,14 @@ user.validate = function (ajaxArgs) {
         $.notice("提示！", "内容不能为空！");
         return false;
     }    
+    if (ajaxArgs.repeat_password != ajaxArgs.password) {
+        $.notice("提示！", "确认密码不一致！");
+        return false;
+    }
     return true;
 }
-// 加载图标
-user.loading = function (element) {
-    var loadingHtml = '<div id="loading" style="background:url(../../../public-resource/imgs/loading.gif) no-repeat;"></div>';
-    element.html(loadingHtml);
-}
-
 $(document).ready(function () {
+
     // 侧栏添加active
     $('.side-nav li').eq(4).find('a').addClass('active');
 

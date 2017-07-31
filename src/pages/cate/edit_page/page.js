@@ -1,31 +1,32 @@
-require ('!style-loader!css-loader!sass-loader!../../../public-resource/css/components-dir/base.scss');
-
-var user = {}; //全局对象
+var user = require('../../commons/common.js');
 // 表单初始化
 user.formInit = function () {
-    $.post('http://127.0.0.1:80/SCIEManagement/category/manage', function (data) {
-        if(typeof data === 'string') {
+    $.ajax({
+        type: 'POST',
+        url: user.SERVER_URL + '/category/manage',
+        success: function(data){
+            if(typeof data === 'string') {
             data = JSON.parse(data);
-        }
-        var status = data.code;//状态码
-        if (status == 200) {
-            var aaData = data.category.category;
-            console.log(aaData);
-            // 表格解析
-            var str = '<option value="0" selected="selected">作为一级栏目</option>';
-            for(var i = 0; i < aaData.length; i++) {
-                // 栏目名称分级显示
-                if (aaData[i].pid == 0) {
-                    str +=  '<option value="' +
-                        aaData[i].id +
-                    '">' +
-                        aaData[i].name +
-                    '</option>';
-                }        
             }
-            $('#pid').html(str);
+            var status = data.code;//状态码
+            if (status == 200) {
+                var aaData = data.category.category;
+                // 表格解析
+                var str = '<option value="0" selected="selected">作为一级栏目</option>';
+                for(var i = 0; i < aaData.length; i++) {
+                    // 栏目名称分级显示
+                    if (aaData[i].pid == 0) {
+                        str +=  '<option value="' +
+                            aaData[i].id +
+                        '">' +
+                            aaData[i].name +
+                        '</option>';
+                    }        
+                }
+                $('#pid').html(str);
+            }
+            else $.notice("提示！", "服务器连接失败!");
         }
-        else $.notice("提示！","服务器连接失败");
     });
 }
 // 更新数据
@@ -83,7 +84,7 @@ user.validate = function(ajaxArgs) {
 // 文件上传
 user.fileUpload = function () {
     $.ajaxFileUpload({
-        url: 'http://127.0.0.1:80/SCIEManagement/file/category/upload',
+        url: user.SERVER_URL + '/file/category/upload',
         secureuri: false,
         fileElementId: 'doc-cover',
         beforeSend: $.notice('提示！', '正在提交...', function () {
@@ -93,8 +94,6 @@ user.fileUpload = function () {
         success: function (data) {
             $('.jq-notice-context').html('上传成功!');
             setTimeout('$.closeNotice()',2000); 
-
-            console.log($("#doc-cover").val());
         }
     }); 
 }
@@ -132,7 +131,7 @@ user.submit = function (event) {
     // 更新
     $.ajax({
         type: 'POST',
-        url: 'http://127.0.0.1:80/SCIEManagement/category/test/update',
+        url: user.SERVER_URL + '/category/update/page',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -153,11 +152,6 @@ user.submit = function (event) {
     });
 
 }
-// 加载图标
-user.loading = function (element) {
-    var loadingHtml = '<div id="loading" style="background:url(../../../public-resource/imgs/loading.gif) no-repeat;"></div>';
-    element.html(loadingHtml);
-}
 
 $(document).ready(function () {
     // 获取编辑文字id
@@ -176,7 +170,7 @@ $(document).ready(function () {
     // 获取栏目信息
     $.ajax({
         type: "POST",
-        url: "http://127.0.0.1:80/SCIEManagement/category/find",
+        url: user.SERVER_URL + '/category/find',
         data: ajaxArgs,
         success: function (data) {
             var status = data.code;//状态码

@@ -1,6 +1,6 @@
-require ('!style-loader!css-loader!sass-loader!../../../public-resource/css/components-dir/base.scss');
+var user = require('../../commons/common.js');
+var my_username = user.session.getLoginState();
 
-var user = {}; //全局对象
 // 解析数据
 user.parseData = function(data) {
     var formdata = [];
@@ -52,12 +52,14 @@ user.delete = function(event) {
             $context.find('.true').on('click', function (event) {
                 event.preventDefault();
                 // 参数
+
                 var ajaxArgs = {
+                    my_username: my_username,
                     id: $this.closest('tr').attr('data-id')
-                }
+                 };
                 $.ajax({
                     type: "POST",
-                    url: "http://127.0.0.1:80/SCIEManagement/copyfrom/delete",
+                    url: user.SERVER_URL + '/admin/manage/delete',
                     beforeSend: user.loading($('.jq-notice-context')),
                     data: ajaxArgs,
                     success: function (data) {
@@ -81,28 +83,27 @@ user.delete = function(event) {
     
 }
 
-// 加载图标
-user.loading = function (element) {
-    var loadingHtml = '<div id="loading" style="background:url(../../../public-resource/imgs/loading.gif) no-repeat;"></div>';
-    element.html(loadingHtml);
-}
-
 $(document).ready(function () {
+    user.session.setLoginState('admin');
     // 侧栏添加active
     $('.side-nav li').eq(4).find('a').addClass('active');
     // 参数
      var ajaxArgs = {
-        username: 'admin'
-     }
+        my_username: my_username
+     };
+     console.log(ajaxArgs);
+
     $.ajax({
         type: "POST",
         beforeSend: user.loading($('tbody')),
         data: ajaxArgs,
-        url: "http://127.0.0.1:80/SCIEManagement/admin/find/admins",
+        url: user.SERVER_URL + '/admin/find/admins',
         success: function(data){
             if(typeof data == 'string') {
                 data = JSON.parse(data);
             }
+                console.log(data);
+
             var status = data.code;//状态码
             if (status == 200) {
                 // 获取原始数据
