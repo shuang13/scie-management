@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 22);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -728,56 +728,35 @@ module.exports = session;
 /* 14 */,
 /* 15 */,
 /* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var user = __webpack_require__(0);
 
-// 更新数据
-user.update = function(data) {
-    $('#copyfrom-title').val(data.title);
-    
-    console.log(data.title);
-    $('#copyfrom-url').val(data.url);
-
-}
-// 表单验证
-user.validate = function(ajaxArgs) {
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.title)) {
-        $.notice("提示！","栏目名称不能为空！");
-        return false;
-    }
-    if (rCheckSpace.test(ajaxArgs.url)) {
-        $.notice("提示！","链接地址不能为空！");
-        return false;
-    }
-    return true;
-}
-
-// 提交创建
-user.submit = function (event) {
+// 表单提交
+user.submit = function () {
     event.preventDefault();
-    // 获取编辑文字id
-    var urlinfo = window.location.href;
-    var id = urlinfo.split("?")[1].split("=")[1];
-    var updateData = {
-            id: id,
-            title: $('#copyfrom-title').val(),
-            url:  $('#copyfrom-url').val(),
-            sort: '1'  
+    var ajaxArgs = {
+        title: $('#link-title').val(),
+        url: $('#link-url').val(),
+        sort:'1'
     };
-    // 验证
-    user.validate(updateData);
-    console.log(updateData);
-    // 更新
+    console.log(ajaxArgs);
+    if(!user.validate(ajaxArgs)) {
+        return false;
+    }
     $.ajax({
         type: 'POST',
-        url: user.SERVER_URL + '/copyfrom/update',
+        url: user.SERVER_URL + '/link/add',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
-        data: updateData,
+        data: ajaxArgs,
         success: function(data){
             if(typeof data === 'string') {
                 data = JSON.parse(data);
@@ -792,40 +771,26 @@ user.submit = function (event) {
             }
         }
     });
+}
+user.validate = function (ajaxArgs) {
 
+    var rCheckSpace = /^\s+$/;
+    if (rCheckSpace.test(ajaxArgs.title)) {
+        $.notice("提示！", "内容不能为空！");
+        return false;
+    }
+    if (rCheckSpace.test(ajaxArgs.url)) {
+        $.notice("提示！", "内容不能为空！");
+        return false;
+    }
+    return true;
 }
 $(document).ready(function () {
-    // 获取编辑文字id
-    var urlinfo = window.location.href;
-    var id = urlinfo.split("?")[1].split("=")[1];
     // 侧栏添加active
-    $('.side-nav li').eq(3).find('a').addClass('active');
-    var ajaxArgs = {
-        id: id
-    }
-    // 获取栏目信息
-    $.ajax({
-        type: "POST",
-        url: user.SERVER_URL + '/copyfrom/find',
-        data: ajaxArgs,
-        success: function (data) {
-            var status = data.code;//状态码
-                console.log(data);
-
-            if (status == 200) {
-                var aaData = data.copyfrom;
-
-                user.update(aaData);
-                console.log(data);
-
-            }
-            else $.notice("提示！","服务器连接失败!");
-        }
-    });
+    $('.side-nav li').eq(6).find('a').addClass('active');
 
     // 表单提交
     $('.btn-submit').on('click', user.submit);
-   
 });
 
 

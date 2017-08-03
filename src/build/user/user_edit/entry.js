@@ -830,7 +830,8 @@ $(document).ready(function () {
     var my_username = user.session.getLoginState();
     var ajaxArgs = {
         my_username: my_username,
-        id: id
+        id: id,
+        sort: '1'
      };
     // 获取栏目信息
     $.ajax({

@@ -18,6 +18,9 @@ module.exports = {
     'user/index': './pages/user/index/page.js',  
     'user/user_create': './pages/user/user_create/page.js',
     'user/user_edit': './pages/user/user_edit/page.js',
+    'link/index': './pages/link/index/page.js',  
+    'link/link_create': './pages/link/link_create/page.js',
+    'link/link_edit': './pages/link/link_edit/page.js',
   },   
   output: {  
     path: BUILD_PATH,   
@@ -122,6 +125,24 @@ module.exports = {
       filename: 'user/user_edit/page.html',
       template: path.resolve(ROOT_PATH, './pages/user/user_edit/html.js'),
       chunks: ['user/user_edit']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello World app',
+      filename: 'link/index/page.html',
+      template: path.resolve(ROOT_PATH, './pages/link/index/html.js'),
+      chunks: ['link/index']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello World app',
+      filename: 'link/link_create/page.html',
+      template: path.resolve(ROOT_PATH, './pages/link/link_create/html.js'),
+      chunks: ['link/link_create']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello World app',
+      filename: 'link/link_edit/page.html',
+      template: path.resolve(ROOT_PATH, './pages/link/link_edit/html.js'),
+      chunks: ['link/link_edit']
     })
     
   ]

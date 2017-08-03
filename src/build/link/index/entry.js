@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 17);
+/******/ 	return __webpack_require__(__webpack_require__.s = 21);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -728,107 +728,127 @@ module.exports = session;
 /* 14 */,
 /* 15 */,
 /* 16 */,
-/* 17 */
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var user = __webpack_require__(0);
-
-// 更新数据
-user.update = function(data) {
-    $('#copyfrom-title').val(data.title);
-    
-    console.log(data.title);
-    $('#copyfrom-url').val(data.url);
-
-}
-// 表单验证
-user.validate = function(ajaxArgs) {
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.title)) {
-        $.notice("提示！","栏目名称不能为空！");
-        return false;
+// 解析数据
+user.parseData = function(data) {
+    var formdata = [];
+    for(var i = 0; i < data.length; i++) {
+        formdata.push({
+            "id": data[i].id,
+            "sort": '<input class="tb-40-wh" type="text" value="' + 
+                        data[i].sort + 
+                    '">',
+            "title": data[i].title,
+            "url": data[i].url,
+            "operate": '<a class="btn-edit" href="../link_edit/page.html?id=' + data[i].id + '">' +
+                        '<i class="fa fa-edit"></i>编辑</a>' +
+                        '<a class="btn-delete" href="##">' + 
+                        '<i class="fa fa-remove"></i>删除</a>',
+        });
     }
-    if (rCheckSpace.test(ajaxArgs.url)) {
-        $.notice("提示！","链接地址不能为空！");
-        return false;
-    }
-    return true;
+    return formdata;
 }
+// 绘制表格
+user.drawTable = function(data) {
+    var $frag = $(document.createDocumentFragment());
+    var $table = $('table');
+    var $ths = $table.find('th');
 
-// 提交创建
-user.submit = function (event) {
+    for(var i = 0; i < data.length; i++) {
+        var $tr = $('<tr data-id="' + data[i].id + '"></tr>');
+        for(var j = 0; j < $ths.length; j++) {
+            $tr.append('<td>' + data[i][$ths.eq(j).attr('data-name')] + '</td');
+        }
+        $frag.append($tr);
+    }
+    $table.find('tbody').empty().append($frag);
+};
+// 绑定操作事件
+user.delete = function(event) {
     event.preventDefault();
-    // 获取编辑文字id
-    var urlinfo = window.location.href;
-    var id = urlinfo.split("?")[1].split("=")[1];
-    var updateData = {
-            id: id,
-            title: $('#copyfrom-title').val(),
-            url:  $('#copyfrom-url').val(),
-            sort: '1'  
-    };
-    // 验证
-    user.validate(updateData);
-    console.log(updateData);
-    // 更新
+    var $this = $(this);
+    $.notice('提示！', [
+        '<div class="discription_dialog">是否删除此栏目!</div>',
+        '<div class="divOperation">',
+            '<span class="true btn btn-danger">确认</span>',
+            '<span class="false btn btn-default">取消</span>',
+        '</div>'
+        ].join(''),
+        function () {
+            var $context = $('.jq-notice-context');
+            $context.find('.true').on('click', function (event) {
+                event.preventDefault();
+                // 参数
+                var ajaxArgs = {
+                    id: $this.closest('tr').attr('data-id')
+                }
+                $.ajax({
+                    type: "POST",
+                    url: user.SERVER_URL + '/link/delete',
+                    beforeSend: user.loading($('.jq-notice-context')),
+                    data: ajaxArgs,
+                    success: function (data) {
+                        if(typeof data == 'string') {
+                            data = JSON.parse(data);
+                        }
+                        var status = data.code;//状态码
+                        if (status == 200) {
+                            $('.jq-notice-context').html('删除成功!');
+                            setTimeout("location.reload()",1000); 
+                        }
+                    }
+                });    
+                
+            });
+            $context.find('.false').on('click', function () {
+                $.closeNotice();
+            });
+        }
+    );
+    
+}
+
+
+$(document).ready(function () {
+    // 侧栏添加active
+    $('.side-nav li').eq(6).find('a').addClass('active');
     $.ajax({
-        type: 'POST',
-        url: user.SERVER_URL + '/copyfrom/update',
-        beforeSend: $.notice('提示！', '正在提交...', function () {
-            user.loading($('.jq-notice-context'));
-        }),
-        data: updateData,
+        type: "POST",
+        beforeSend: user.loading($('tbody')),
+        url: user.SERVER_URL + '/link/index',
         success: function(data){
-            if(typeof data === 'string') {
+            if(typeof data == 'string') {
                 data = JSON.parse(data);
             }
             var status = data.code;//状态码
-            console.log(data);
-            if(status == 200) {
-                $('.jq-notice-context').html('提交成功!');
-                setTimeout('window.location.href = "../index/page.html"',2000); 
-            } else {
-                $('.jq-notice-context').html('提交失败!');
-            }
-        }
-    });
-
-}
-$(document).ready(function () {
-    // 获取编辑文字id
-    var urlinfo = window.location.href;
-    var id = urlinfo.split("?")[1].split("=")[1];
-    // 侧栏添加active
-    $('.side-nav li').eq(3).find('a').addClass('active');
-    var ajaxArgs = {
-        id: id
-    }
-    // 获取栏目信息
-    $.ajax({
-        type: "POST",
-        url: user.SERVER_URL + '/copyfrom/find',
-        data: ajaxArgs,
-        success: function (data) {
-            var status = data.code;//状态码
-                console.log(data);
-
             if (status == 200) {
-                var aaData = data.copyfrom;
-
-                user.update(aaData);
+                // 获取原始数据
+                var aaData = data.links.link;
                 console.log(data);
+            
+                // 数据解析
+                var new_data = user.parseData(aaData);
+                                
+                // 根据解析的结果，绘制表格
+                user.drawTable(new_data);
+                
+                // 栏目删除
+                $('.btn-delete').on('click', user.delete);
+                
 
+                
+                console.log(new_data);
             }
-            else $.notice("提示！","服务器连接失败!");
         }
     });
-
-    // 表单提交
-    $('.btn-submit').on('click', user.submit);
-   
 });
-
-
 
 /***/ })
 /******/ ]);

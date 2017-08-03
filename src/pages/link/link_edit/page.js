@@ -2,17 +2,17 @@ var user = require('../../commons/common.js');
 
 // 更新数据
 user.update = function(data) {
-    $('#copyfrom-title').val(data.title);
+    $('#link-title').val(data.title);
     
     console.log(data.title);
-    $('#copyfrom-url').val(data.url);
+    $('#link-url').val(data.url);
 
 }
 // 表单验证
 user.validate = function(ajaxArgs) {
     var rCheckSpace = /^\s+$/;
     if (rCheckSpace.test(ajaxArgs.title)) {
-        $.notice("提示！","栏目名称不能为空！");
+        $.notice("提示！","链接名称不能为空！");
         return false;
     }
     if (rCheckSpace.test(ajaxArgs.url)) {
@@ -30,9 +30,9 @@ user.submit = function (event) {
     var id = urlinfo.split("?")[1].split("=")[1];
     var updateData = {
             id: id,
-            title: $('#copyfrom-title').val(),
-            url:  $('#copyfrom-url').val(),
-            sort: '1'  
+            title: $('#link-title').val(),
+            url:  $('#link-url').val(),
+            sort: 0
     };
     // 验证
     user.validate(updateData);
@@ -40,7 +40,7 @@ user.submit = function (event) {
     // 更新
     $.ajax({
         type: 'POST',
-        url: user.SERVER_URL + '/copyfrom/update',
+        url: user.SERVER_URL + '/link/update',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -73,14 +73,14 @@ $(document).ready(function () {
     // 获取栏目信息
     $.ajax({
         type: "POST",
-        url: user.SERVER_URL + '/copyfrom/find',
+        url: user.SERVER_URL + '/link/find',
         data: ajaxArgs,
         success: function (data) {
             var status = data.code;//状态码
                 console.log(data);
 
             if (status == 200) {
-                var aaData = data.copyfrom;
+                var aaData = data.link;
 
                 user.update(aaData);
                 console.log(data);
