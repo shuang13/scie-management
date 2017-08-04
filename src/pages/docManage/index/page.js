@@ -3,18 +3,13 @@ var user = require('../../commons/common.js');
 user.parseData = function(data) {
     var formdata = [];
     for(var i = 0; i < data.length; i++) {
+        var newDate = new Date(data[i].updated_at);
         formdata.push({
-            "sort": '<input class="tb-40-wh" type="text" value="' + 
-                        data[i].sort + 
-                    '">',
             "id": data[i].id,
-            "name": user.addPrefix(data[i].name, data[i].pid),
-            "type": data[i].type,
-            "model_id": data[i].model_id,
-            "pid": data[i].pid,
-            "doc_count": data[i].doc_count,
-            "display": user.convertBooleanIcon(data[i].display),
-            "nav": user.convertBooleanIcon(data[i].nav),
+            "title": data[i].title,
+            "view_count": data[i].view_count,
+            "cid": data[i].cid,
+            "updated_at": newDate.toLocaleDateString(),
             "operate": '<a class="btn-edit" href="../edit_' + data[i].type + '/page.html?id=' + data[i].id + '">' +
                         '<i class="fa fa-edit"></i>编辑</a>' +
                         '<a class="btn-delete" href="##">' + 
@@ -22,7 +17,52 @@ user.parseData = function(data) {
         });
     }
     return formdata;
+};
+// 表单初始化
+user.formInit = function () {
+    $.ajax({
+        type: 'POST',
+        url: user.SERVER_URL + '/category/manage',
+        success: function(data){
+            if(typeof data === 'string') {
+            data = JSON.parse(data);
+            }
+            var status = data.code;//状态码
+            if (status == 200) {
+                var aaData = data.category.category;
+                console.log(aaData);
+                var top = [];
+                // 表格解析
+                var str = '<option value="0" selected="selected">==全部==</option>';
+                for(var i = 0; i < aaData.length; i++) {
+                    // 栏目名称分级显示
+                    if (aaData[i].pid == 0) {
+                        top.push(aaData[i].id);
+                    }        
+                }
+                for (var i = 0; i < top.length; i++) {
+                    for(var j = 0; j < aaData.length; j++) {
+                        // 栏目名称分级显示
+                        if (aaData[i].pid == top[i]) {
+                            top.push(aaData[i].id);
+                            str +=  '<option value="' +
+                                aaData[i].id +
+                            '">' +
+                                aaData[i].name +
+                            '</option>';
+                        }        
+                    }
+                }
+                
+                console.log(top);
+
+                $('#search-cid').html(str);
+            }
+            else $.notice("提示！", "服务器连接失败!");
+        }
+    });
 }
+
 // 绘制表格
 user.drawTable = function(data) {
     var $frag = $(document.createDocumentFragment());
@@ -56,10 +96,11 @@ user.delete = function(event) {
                 // 参数
                 var ajaxArgs = {
                     id: $this.closest('tr').attr('data-id')
-                }
+                };
+                console.log(ajaxArgs);
                 $.ajax({
                     type: "POST",
-                    url: user.SERVER_URL + "/category/delete",
+                    url: user.SERVER_URL + "/article/manage/delete",
                     beforeSend: user.loading($('.jq-notice-context')),
                     data: ajaxArgs,
                     success: function (data) {
@@ -99,11 +140,12 @@ user.addPrefix = function (name, pid) {
 
 $(document).ready(function () {
     // 侧栏添加active
-    $('.side-nav li').eq(0).find('a').addClass('active');
+    $('.side-nav li').eq(5).find('a').addClass('active');
+    user.formInit();
     $.ajax({
-        type: "POST",
+        type: "GET",
         beforeSend: user.loading($('tbody')),
-        url: user.SERVER_URL + "/category/manage",
+        url: user.SERVER_URL + "/article/manage",
         success: function(data){
             if(typeof data == 'string') {
                 data = JSON.parse(data);
@@ -111,7 +153,7 @@ $(document).ready(function () {
             var status = data.code;//状态码
             if (status == 200) {
                 // 获取原始数据
-                var aaData = data.category.category;
+                var aaData = data.articles.article;
                 console.log(aaData);
             
                 // 数据解析

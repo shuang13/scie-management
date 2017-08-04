@@ -121,8 +121,10 @@ $(document).ready(function () {
     KindEditor.ready(function(K) {
         window.editor = K.create('#editor_id');
     });
+    $("#time-pick").flatpickr(); // jQuery初始化方法
+    
     // 侧栏添加active
-    $('.side-nav li').eq(0).find('a').addClass('active');
+    $('.side-nav li').eq(5).find('a').addClass('active');
     // 初始化
     user.formInit();
     // 文件上传

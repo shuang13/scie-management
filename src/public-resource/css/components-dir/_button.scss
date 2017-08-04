@@ -49,6 +49,23 @@
     background: #D9534F;
     color: #fff;
 }
+.btn-search{
+    margin-left: 20px;
+    width: 60px;
+    height: 33px;
+    background: #313131;
+    color: #fff;
+    text-align: center;
+    font-size: 14px;
+    line-height: 33px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+    border-radius: 5px;
+    &:hover{
+        opacity: 0.8;
+    }
+}
 #content table .operate a, .state a{
     color: #06A2E9;
 }
