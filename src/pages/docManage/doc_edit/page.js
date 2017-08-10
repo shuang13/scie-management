@@ -89,7 +89,7 @@ function getFileName(o){
 user.fileUpload = function () {
     var filename = getFileName($('#docManage-cover').val());
     $.ajaxFileUpload({
-        url: user.SERVER_URL + '/file/category/upload',
+        url: user.SERVER_URL + '/file/article/upload',
         secureuri: false,
         fileElementId: 'docManage-coverr',
         beforeSend: $.notice('提示！', '正在提交...', function () {
@@ -222,7 +222,9 @@ $(document).ready(function () {
         window.editor = K.create('#editor_id');
     });
     // 时间选择器初始化
-    $("#time-pick").flatpickr(); 
+    $("#time-pick").flatpickr({
+        defaultDate: new Date()
+    }); 
     
     // 侧栏添加active
     $('.side-nav li').eq(5).find('a').addClass('active');

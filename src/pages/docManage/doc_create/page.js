@@ -84,7 +84,7 @@ function getFileName(o){
 user.fileUpload = function () {
     var filename = getFileName($('#docManage-cover').val());
     $.ajaxFileUpload({
-        url: user.SERVER_URL + '/file/category/upload',
+        url: user.SERVER_URL + '/file/article/upload',
         secureuri: false,
         fileElementId: 'docManage-cover',
         beforeSend: $.notice('提示！', '正在提交...', function () {
@@ -94,7 +94,7 @@ user.fileUpload = function () {
         success: function (data) {
             $('.jq-notice-context').html('上传成功!');
             setTimeout('$.closeNotice()',2000); 
-            $('.cover-img').attr('src', 'C:/Users/1234/Downloads/软件/apache-tomcat-7.0.75/apache-tomcat-7.0.75/webapps/SCIEManagement/upload/' + filename);
+            // $('.cover-img').attr('src', 'C:/Users/1234/Downloads/软件/apache-tomcat-7.0.75/apache-tomcat-7.0.75/webapps/SCIEManagement/upload/' + filename);
             console.log(filename);
             $("#docManage-cover").replaceWith('<input type="file" id="docManage-cover" name="docManage-cover" title="">');
             $("#docManage-cover").attr('title', filename);
@@ -173,7 +173,9 @@ $(document).ready(function () {
         window.editor = K.create('#editor_id');
     });
     // 时间选择器初始化
-    $("#time-pick").flatpickr(); 
+    $("#time-pick").flatpickr({
+        defaultDate: new Date()
+    }); 
     
     // 侧栏添加active
     $('.side-nav li').eq(5).find('a').addClass('active');
