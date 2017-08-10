@@ -7,26 +7,20 @@
         </ul>
         <div class="main"> 
             <div class="search">
-                <label for="search-cid">栏目:</label>
-                <select id="search-cid">
-                        <option value="" selected="selected">学院概况</option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                </select>
-                <label for="search-id">ID:</label>
-                <input id="search-id" type="text">
-                <label for="search-title">标题:</label>
-                <input id="search-title" type="text">
                 <label for="search-sort">排序方式:</label>
                 <select id="search-sort">
-                        <option value="pubdate" selected="selected">发布时间</option>
-                        <option value="update">更新时间</option>
+                        <option value="publish_date" selected="selected">发布时间</option>
+                        <option value="updated_at">更新时间</option>
                         <option value="id">文档ID</option>
                 </select>
+                <label for="search-cid">栏目:</label>
+                <select id="search-cid">
+                        <option value="" selected="selected">加载中...</option>
+                </select>
+
+                <label for="search-title">标题:</label>
+                <input id="search-title" type="text">
+                
                 <button class="btn-search">搜索</button>
             </div>
             <!-- 数据表格 -->
@@ -44,4 +38,5 @@
                 <tbody>
                 </tbody>
             </table>
+            <div id="pagination"></div>
         </div>

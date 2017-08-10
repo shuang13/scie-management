@@ -84,7 +84,6 @@ user.delete = function(event) {
 }
 
 $(document).ready(function () {
-    user.session.setLoginState('admin');
     // 侧栏添加active
     $('.side-nav li').eq(4).find('a').addClass('active');
     // 参数

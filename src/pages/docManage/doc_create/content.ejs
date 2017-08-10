@@ -1,5 +1,5 @@
         <div class="page-header">
-            <p>内容管理</p>
+            <p>添加内容</p>
         </div>
         <ul class="page-nav">
            <li><a href="../index/page.html">内容管理</a></li>
@@ -9,11 +9,13 @@
             <form action="##">
                 <div class="option">
                     <label class="form-label">封面图片</label>
-                    <i class="cover-img"></i> 
+                    <img class="cover-img" > 
                 </div>
                 <div class="option">
                     <p class="form-label">选择封面图</p>
-                    <input type="file" value="选择封面图">
+                    <div class="cover">
+                        <input type="file" id="docManage-cover" name="docManage-cover">
+                    </div>
                 </div>
                 <div class="option">
                     <!-- 时间选择器 -->
@@ -25,31 +27,26 @@
             <form action="##">
                 <div class="option">
                     <p class="form-label">栏目:</p>
-                    <select id="##">
-                        <option value="" selected="selected">学院概况</option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
+                    <select id="cate-select">
+                        <option value="" selected="selected">加载中...</option>
+
                     </select>
                 </div>
                 <div class="option">
                     <p class="form-label">标题:</p>
-                    <input type="text" id="##">
+                    <input type="text" id="title">
                 </div>
                 <div class="option">
                     <p class="form-label">关键词:</p>
-                    <input type="text" id="##">
+                    <input type="text" id="keywords">
                 </div>
                 <div class="option">
                     <p class="form-label">摘要:</p>
-                    <textarea name="" id=""></textarea>
+                    <textarea name="description" id="description"></textarea>
                 </div>
                 <div class="option">
                     <p class="form-label">来源:</p>
-                    <select id="##">
+                    <select id="copyfrom-select">
                         <option value="" selected="selected">选择来源</option>
                     </select>
                 </div>
@@ -64,9 +61,9 @@
                 </div>
                 <div class="option">
                     <p class="form-label">推荐位:</p>
-                    <input type="checkbox">网站首页推荐
-                    <input type="checkbox">首页图片推荐 
-                    <input type="checkbox">首页焦点推荐
+                    <input type="checkbox" value="1" name="message">网站首页推荐
+                    <input type="checkbox" value="2" name="message">首页图片推荐 
+                    <input type="checkbox" value="4" name="message">首页焦点推荐
                 </div>
                 <div class="option">
                     <button class="btn-submit" type="submit">确认添加</button>

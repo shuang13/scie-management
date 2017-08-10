@@ -2,6 +2,8 @@ require ('!style-loader!css-loader!sass-loader!../../public-resource/css/compone
 var session = require('./session.js');
 var user = {}; //全局对象
 user.session = session;
+user.session.setLoginState('admin');
+
 user.SERVER_URL = 'http://127.0.0.1:80/SCIEManagement';
 // 加载图标
 user.loading = function (element) {

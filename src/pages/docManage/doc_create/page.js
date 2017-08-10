@@ -1,6 +1,9 @@
 var user = require('../../commons/common.js');
+var my_id = user.session.getUserId;
+
 // 表单初始化
 user.formInit = function () {
+    // 选择栏目
     $.ajax({
         type: 'POST',
         url: user.SERVER_URL + '/category/manage',
@@ -11,30 +14,79 @@ user.formInit = function () {
             var status = data.code;//状态码
             if (status == 200) {
                 var aaData = data.category.category;
+                var topID = [];
+                var top = [];
                 // 表格解析
-                var str = '<option value="0" selected="selected">作为一级栏目</option>';
+                var str = '<option value="0" selected="selected">==请选择栏目==</option>';
                 for(var i = 0; i < aaData.length; i++) {
                     // 栏目名称分级显示
                     if (aaData[i].pid == 0) {
-                        str +=  '<option value="' +
-                            aaData[i].id +
-                        '">' +
-                            aaData[i].name +
-                        '</option>';
+                        topID.push(aaData[i].id);
+                        top.push(i);
                     }        
                 }
-                $('#pid').html(str);
+                for (var i = 0; i < topID.length; i++) {
+                    str +=  '<option value="' +
+                            aaData[top[i]].id +
+                        '">' +
+                            aaData[top[i]].title +
+                        '</option>';
+                    for(var j = 0; j < aaData.length; j++) {
+                        // 栏目名称分级显示
+                        if (aaData[j].pid == topID[i]) {
+                            str +=  '<option value="' +
+                            aaData[j].id +
+                                '">|--' +
+                            aaData[j].title +
+                            '</option>';
+                        }        
+                    }
+                }
+                $('#cate-select').html(str);
+            }
+            else $.notice("提示！", "服务器连接失败!");
+        }
+    });
+    // 选择来源
+    $.ajax({
+        type: 'POST',
+        url: user.SERVER_URL + '/copyfrom/index',
+        success: function(data){
+            if(typeof data === 'string') {
+            data = JSON.parse(data);
+            }
+            var status = data.code;//状态码
+            if (status == 200) {
+                var aaData = data.copyfroms.copyfrom;
+
+                // 表格解析
+                var str = '<option selected="selected">==请选择栏目==</option>' + 
+                '<option value="0" >原创</option>';
+                
+                for (var i = 0; i < aaData.length; i++) {
+                    str +=  '<option value="' +
+                            aaData[i].title +
+                        '">' +
+                            aaData[i].title +
+                        '</option>';
+                }
+                $('#copyfrom-select').html(str);
             }
             else $.notice("提示！", "服务器连接失败!");
         }
     });
 }
+function getFileName(o){
+    var pos=o.lastIndexOf("\\");
+    return o.substring(pos+1);  
+}
 // 文件上传
 user.fileUpload = function () {
+    var filename = getFileName($('#docManage-cover').val());
     $.ajaxFileUpload({
         url: user.SERVER_URL + '/file/category/upload',
         secureuri: false,
-        fileElementId: 'doc-cover',
+        fileElementId: 'docManage-cover',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -42,40 +94,40 @@ user.fileUpload = function () {
         success: function (data) {
             $('.jq-notice-context').html('上传成功!');
             setTimeout('$.closeNotice()',2000); 
+            $('.cover-img').attr('src', 'C:/Users/1234/Downloads/软件/apache-tomcat-7.0.75/apache-tomcat-7.0.75/webapps/SCIEManagement/upload/' + filename);
+            console.log(filename);
+            $("#docManage-cover").replaceWith('<input type="file" id="docManage-cover" name="docManage-cover" title="">');
+            $("#docManage-cover").attr('title', filename);
+            $('#docManage-cover').on('change', user.fileUpload);
+
         }
     }); 
 }
 // 表单提交
 user.submit = function () {
     event.preventDefault();
+    text = $("input:checkbox[name='message']:checked").map(function(index,elem) {
+        return $(elem).val();
+    }).get().join('0');
+    console.log("选中的checkbox的值为："+text);
     var ajaxArgs = {
-        model_id: $('#model-id').val(),
-        pid: $('#pid').val(),
-        title: $('#doc-title').val(),
-        name: $('#doc-name').val(),
-        type: "doc",
-        cover: $("#doc-cover").val(),
+        cid: $('#cate-select').val(),
+        uid: my_id,
+        position: text,
+        title: $('#title').val(),
+        keywords: $('#keywords').val(),
+        description: $('#description').val(),
+        copyfrom: $("#copyfrom-select").val(),
         content: $('#editor_id').val(),
-        display: $('input[name="display"]:checked').val(),
-        nav: $('input[name="nav"]:checked').val(),
-        publish: $('input[name="publish"]:checked').val(),
-        comment: $('input[name="comment"]:checked').val(),
-        check_level: $('#check-level').val(),
-        template_index: $('#template-index').val(),
-        template_list: $('#template-list').val(),
-        template_detail: $('#template-detail').val(),
-        meta_title: $('#meta-title').val(),
-        meta_keywords: $('#meta-keywords').val(),
-        meta_description: $('#meta-description').val()
     };
     console.log(ajaxArgs);
-    if(!user.validate(ajaxArgs)) {
-        return false;
+    // if(!user.validate(ajaxArgs)) {
+    //     return false;
         
-    }
+    // }
     $.ajax({
         type: 'POST',
-        url: user.SERVER_URL + '/category/add/doc',
+        url: user.SERVER_URL + '/article/manage/add',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -116,19 +168,19 @@ user.validate = function (ajaxArgs) {
 }
 
 $(document).ready(function () {
-    $('#doc-cover').filestyle({buttonText: "浏览"});
     // 富文本编辑器
     KindEditor.ready(function(K) {
         window.editor = K.create('#editor_id');
     });
-    $("#time-pick").flatpickr(); // jQuery初始化方法
+    // 时间选择器初始化
+    $("#time-pick").flatpickr(); 
     
     // 侧栏添加active
     $('.side-nav li').eq(5).find('a').addClass('active');
     // 初始化
     user.formInit();
     // 文件上传
-    $('#doc-cover').on('change', user.fileUpload);
+    $('#docManage-cover').on('change', user.fileUpload);
     // 表单提交
     $('.btn-submit').on('click', user.submit);
 });

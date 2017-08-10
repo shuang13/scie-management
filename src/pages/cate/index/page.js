@@ -8,7 +8,7 @@ user.parseData = function(data) {
                         data[i].sort + 
                     '">',
             "id": data[i].id,
-            "name": user.addPrefix(data[i].name, data[i].pid),
+            "title": user.addPrefix(data[i].title, data[i].pid),
             "type": data[i].type,
             "model_id": data[i].model_id,
             "pid": data[i].pid,
@@ -23,19 +23,91 @@ user.parseData = function(data) {
     }
     return formdata;
 }
+// 表单初始化
+user.formInit = function () {
+    $.ajax({
+        type: 'POST',
+        url: user.SERVER_URL + '/category/manage',
+        success: function(data){
+            if(typeof data === 'string') {
+            data = JSON.parse(data);
+            }
+            var status = data.code;//状态码
+            if (status == 200) {
+                var aaData = data.category.category;
+                console.log(aaData);
+                var top = [];
+                // 表格解析
+                var str = '<option value="0" selected="selected">==全部==</option>';
+                for(var i = 0; i < aaData.length; i++) {
+                    // 栏目名称分级显示
+                    if (aaData[i].pid == 0) {
+                        top.push(aaData[i].id);
+                    }        
+                }
+                for (var i = 0; i < top.length; i++) {
+                    str +=  '<option value="' +
+                            aaData[i].id +
+                        '">' +
+                            aaData[i].name +
+                        '</option>';
+                    for(var j = 0; j < aaData.length; j++) {
+                        // 栏目名称分级显示
+                        if (aaData[j].pid == top[i]) {
+                            str +=  '<option value="' +
+                            aaData[j].id +
+                                '">|--' +
+                            aaData[j].name +
+                            '</option>';
+                        }        
+                    }
+                }
+                $('#search-cid').html(str);
+            }
+            else $.notice("提示！", "服务器连接失败!");
+        }
+    });
+}
 // 绘制表格
 user.drawTable = function(data) {
     var $frag = $(document.createDocumentFragment());
     var $table = $('table');
     var $ths = $table.find('th');
-
+    var top = [];
+    var topID = [];
+ 
     for(var i = 0; i < data.length; i++) {
-        var $tr = $('<tr data-id="' + data[i].id + '"></tr>');
-        for(var j = 0; j < $ths.length; j++) {
-            $tr.append('<td>' + data[i][$ths.eq(j).attr('data-name')] + '</td');
+        // 栏目名称分级显示
+        if (data[i].pid == 0) {
+            topID.push(data[i].id);
+            top.push(i);
+        }        
+    }
+    for (var i = 0; i < topID.length; i++) {
+        var $tr = $('<tr data-id="' + topID[i] + '"></tr>');
+        for(var t = 0; t < $ths.length; t++) {
+            $tr.append('<td>' + data[top[i]][$ths.eq(t).attr('data-name')] + '</td');
         }
         $frag.append($tr);
+        for(var j = 0; j < data.length; j++) {
+            // 栏目名称分级显示
+            if (data[j].pid == topID[i]) {
+                var $tr = $('<tr data-id="' + data[j].id + '"></tr>');
+                for(var t = 0; t < $ths.length; t++) {
+                    $tr.append('<td>' + data[j][$ths.eq(t).attr('data-name')] + '</td');
+                }
+                $frag.append($tr);
+            }        
+        }
     }
+    // // 表格解析
+    // for(var i = 0; i < data.length; i++) {
+    //     var $tr = $('<tr data-id="' + data[i].id + '"></tr>');
+    //     for(var j = 0; j < $ths.length; j++) {
+    //         $tr.append('<td>' + data[i][$ths.eq(j).attr('data-name')] + '</td');
+    //     }
+    //     $frag.append($tr);
+    // }
     $table.find('tbody').empty().append($frag);
 };
 // 绑定操作事件

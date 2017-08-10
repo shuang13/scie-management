@@ -71,6 +71,8 @@ __webpack_require__ (1);
 var session = __webpack_require__(7);
 var user = {}; //全局对象
 user.session = session;
+user.session.setLoginState('admin');
+
 user.SERVER_URL = 'http://127.0.0.1:80/SCIEManagement';
 // 加载图标
 user.loading = function (element) {
@@ -131,7 +133,7 @@ exports = module.exports = __webpack_require__(3)(undefined);
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\nbody {\n  font-family: \"Adobe \\9ED1\\4F53   Std\"; }\n\na {\n  text-decoration: none;\n  color: #000; }\n\nli {\n  float: left;\n  list-style: none; }\n\n/*顶栏*/\nheader {\n  position: fixed;\n  padding-left: 200px;\n  width: 100%;\n  height: 50px;\n  background: #313239;\n  z-index: 99; }\n  header .top-nav-left {\n    float: left; }\n    header .top-nav-left a {\n      display: inline-block;\n      min-width: 80px;\n      height: 50px;\n      line-height: 50px;\n      text-align: center;\n      font-size: 14px;\n      color: #fff; }\n      header .top-nav-left a:hover {\n        background: #fff;\n        color: #26272C; }\n  header .top-nav-right {\n    float: right; }\n    header .top-nav-right .user-nav {\n      display: none;\n      position: fixed; }\n  header .dropdown-toggle {\n    display: inline-block;\n    width: 120px;\n    height: 50px;\n    line-height: 50px;\n    text-align: center;\n    font-size: 14px;\n    color: #fff;\n    cursor: pointer; }\n    header .dropdown-toggle .tri {\n      display: inline-block;\n      margin-left: 2px;\n      border: 4px solid transparent;\n      width: 0;\n      border-top: 4px solid #fff; }\n\n.user-nav li:last-child a {\n  border-radius: 0 0 5px 5px; }\n\n.user-nav a {\n  display: inline-block;\n  width: 120px;\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n  font-size: 14px;\n  background: #313239;\n  color: #fff; }\n  .user-nav a:hover {\n    background: #fff;\n    color: #26272C; }\n\n/*侧栏*/\n#sidebar {\n  position: fixed;\n  width: 200px;\n  height: 100%;\n  background: #313239;\n  z-index: 999; }\n  #sidebar .logo {\n    width: 200px;\n    height: 50px;\n    border-bottom: 1px solid #000; }\n  #sidebar .side-nav {\n    margin-top: 100px; }\n    #sidebar .side-nav a {\n      display: inline-block;\n      padding-left: 30px;\n      width: 200px;\n      height: 48px;\n      border-left: 6px solid transparent;\n      line-height: 48px;\n      color: #fff; }\n      #sidebar .side-nav a:hover {\n        background: #26272C; }\n    #sidebar .side-nav .active {\n      border-left: 5px solid #66BAF6;\n      background: #26272C; }\n\n/*主体容器*/\n#content {\n  padding-left: 200px;\n  width: 100%;\n  height: 100%;\n  z-index: 9;\n  overflow-x: hidden; }\n  #content .page-header {\n    padding-top: 50px;\n    padding-left: 39px;\n    min-width: 600px;\n    border-bottom: 1px solid #ccc;\n    line-height: 50px; }\n    #content .page-header p {\n      font-size: 20px; }\n  #content .page-nav {\n    margin: 20px 0 20px 39px;\n    width: 1100px;\n    height: 46px;\n    line-height: 46px;\n    border-top: 1px solid #E4E4E4; }\n    #content .page-nav a {\n      display: block;\n      padding: 0 20px;\n      height: 46px;\n      text-align: center;\n      font-size: 16px; }\n  #content .nav-active {\n    border-top: 1px solid #66BAF6; }\n\n.main {\n  min-width: 1100px;\n  padding-left: 39px;\n  padding-bottom: 139px; }\n  .main .search label {\n    display: inline-block;\n    padding: 10px;\n    line-height: 30px;\n    text-align: center; }\n\n.btn-submit {\n  margin: 20px 0 0 155px;\n  width: 130px;\n  height: 33px;\n  background: #313131;\n  color: #fff;\n  text-align: center;\n  font-size: 14px;\n  line-height: 33px;\n  cursor: pointer;\n  outline: none;\n  border: none;\n  border-radius: 5px; }\n  .btn-submit:hover {\n    opacity: 0.8; }\n  .btn-submit:active {\n    color: #000; }\n\n.btn-sort {\n  display: inline-block;\n  margin-left: 14px;\n  padding: 0 5px;\n  font-size: 14px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  cursor: pointer; }\n  .btn-sorthover {\n    background: #6F6F6F;\n    color: #fff; }\n\n.btn-delete, .btn-edit {\n  display: inline-block;\n  min-width: 50px;\n  line-height: 22px;\n  text-align: center;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  font-size: 12px;\n  font-family: '\\5B8B\\4F53'; }\n  .btn-delete:hover, .btn-edit:hover {\n    background: #6F6F6F;\n    color: #fff; }\n\n.btn-delete {\n  background: #D9534F;\n  color: #fff; }\n\n.btn-search {\n  margin-left: 20px;\n  width: 60px;\n  height: 33px;\n  background: #313131;\n  color: #fff;\n  text-align: center;\n  font-size: 14px;\n  line-height: 33px;\n  cursor: pointer;\n  outline: none;\n  border: none;\n  border-radius: 5px; }\n  .btn-search:hover {\n    opacity: 0.8; }\n\n#content table .operate a, .state a {\n  color: #06A2E9; }\n\n#content table .state a {\n  display: block;\n  color: #06A2E9; }\n\n.tb-40-wh {\n  width: 40px;\n  line-height: 25px;\n  text-align: center;\n  font-size: 14px; }\n\n#loading {\n  display: block;\n  height: 32px;\n  width: 32px;\n  margin: 30px;\n  background: url(" + __webpack_require__(4) + ") no-repeat; }\n\n#content table {\n  padding-bottom: 20px;\n  width: 1100px;\n  font-size: 14px; }\n\n#content table th, td {\n  padding: 5px 14px 5px 14px;\n  max-width: 140px;\n  font-weight: normal;\n  text-align: left;\n  overflow: hidden;\n  word-break: break-all; }\n\n.fa {\n  margin: 2px 4px 0 0; }\n\n.main .search input {\n  padding: 6px 12px;\n  height: 34px;\n  font-size: 14px; }\n\n.main .search select {\n  padding: 6px 12px; }\n\ninput, select, textarea {\n  border: 1px solid #ccc; }\n\ninput:focus, select:focus, textarea:focus {\n  border: 1px solid #66BAF6;\n  outline: none; }\n\n.main .option {\n  line-height: 45px; }\n\n.form-label {\n  display: inline-block;\n  margin-right: 10px;\n  width: 140px;\n  text-align: right; }\n\ninput, select, textarea {\n  border: 1px solid #ccc; }\n\ninput:focus, select:focus, textarea:focus {\n  border: 1px solid #66BAF6;\n  outline: none; }\n\n.option input[type=\"text\"] {\n  padding: 6px 12px;\n  height: 34px;\n  font-size: 14px; }\n\n.option input[type=\"radio\"] {\n  margin: 0 10px; }\n\n.option input[type=\"checkbox\"] {\n  margin: 0 10px; }\n\n.option select {\n  padding: 6px 12px; }\n\n.option textarea {\n  padding: 6px 10px;\n  width: 460px;\n  height: 60px;\n  vertical-align: text-top;\n  resize: none; }\n\n.option .wrapper {\n  display: inline-block;\n  width: 650px; }\n\n.option span {\n  display: inline-block; }\n\n.editor-box {\n  margin: -30px 0 0 155px; }\n\n#editor_id {\n  width: 700px;\n  height: 600px; }\n\n.cover-img {\n  display: inline-block;\n  vertical-align: text-top;\n  width: 180px;\n  height: 125px;\n  border: 1px solid #ccc; }\n\n.cover {\n  display: inline-block; }\n  .cover .buttonText {\n    outline: none;\n    cursor: pointer; }\n  .cover .form-control {\n    cursor: not-allowed; }\n", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box; }\n\nbody {\n  font-family: \"Adobe \\9ED1\\4F53   Std\"; }\n\na {\n  text-decoration: none;\n  color: #000; }\n\nli {\n  float: left;\n  list-style: none; }\n\n/*顶栏*/\nheader {\n  position: fixed;\n  padding-left: 200px;\n  width: 100%;\n  height: 50px;\n  background: #313239;\n  z-index: 99; }\n  header .top-nav-left {\n    float: left; }\n    header .top-nav-left a {\n      display: inline-block;\n      min-width: 80px;\n      height: 50px;\n      line-height: 50px;\n      text-align: center;\n      font-size: 14px;\n      color: #fff; }\n      header .top-nav-left a:hover {\n        background: #fff;\n        color: #26272C; }\n  header .top-nav-right {\n    float: right; }\n    header .top-nav-right .user-nav {\n      display: none;\n      position: fixed; }\n  header .dropdown-toggle {\n    display: inline-block;\n    width: 120px;\n    height: 50px;\n    line-height: 50px;\n    text-align: center;\n    font-size: 14px;\n    color: #fff;\n    cursor: pointer; }\n    header .dropdown-toggle .tri {\n      display: inline-block;\n      margin-left: 2px;\n      border: 4px solid transparent;\n      width: 0;\n      border-top: 4px solid #fff; }\n\n.user-nav li:last-child a {\n  border-radius: 0 0 5px 5px; }\n\n.user-nav a {\n  display: inline-block;\n  width: 120px;\n  height: 30px;\n  line-height: 30px;\n  text-align: center;\n  font-size: 14px;\n  background: #313239;\n  color: #fff; }\n  .user-nav a:hover {\n    background: #fff;\n    color: #26272C; }\n\n/*侧栏*/\n#sidebar {\n  position: fixed;\n  width: 200px;\n  height: 100%;\n  background: #313239;\n  z-index: 999; }\n  #sidebar .logo {\n    width: 200px;\n    height: 50px;\n    border-bottom: 1px solid #000; }\n  #sidebar .side-nav {\n    margin-top: 100px; }\n    #sidebar .side-nav a {\n      display: inline-block;\n      padding-left: 30px;\n      width: 200px;\n      height: 48px;\n      border-left: 6px solid transparent;\n      line-height: 48px;\n      color: #fff; }\n      #sidebar .side-nav a:hover {\n        background: #26272C; }\n    #sidebar .side-nav .active {\n      border-left: 5px solid #66BAF6;\n      background: #26272C; }\n\n/*主体容器*/\n#content {\n  padding-left: 200px;\n  width: 100%;\n  height: 100%;\n  z-index: 9;\n  overflow-x: hidden; }\n  #content .page-header {\n    padding-top: 50px;\n    padding-left: 39px;\n    min-width: 600px;\n    border-bottom: 1px solid #ccc;\n    line-height: 50px; }\n    #content .page-header p {\n      font-size: 20px; }\n  #content .page-nav {\n    margin: 20px 0 20px 39px;\n    width: 1100px;\n    height: 46px;\n    line-height: 46px;\n    border-top: 1px solid #E4E4E4; }\n    #content .page-nav a {\n      display: block;\n      padding: 0 20px;\n      height: 46px;\n      text-align: center;\n      font-size: 16px; }\n  #content .nav-active {\n    border-top: 1px solid #66BAF6; }\n\n.main {\n  min-width: 1100px;\n  padding-left: 39px;\n  padding-bottom: 139px; }\n  .main .search label {\n    display: inline-block;\n    padding: 10px;\n    line-height: 30px;\n    text-align: center; }\n\n.btn-submit {\n  margin: 20px 0 0 155px;\n  width: 130px;\n  height: 33px;\n  background: #313131;\n  color: #fff;\n  text-align: center;\n  font-size: 14px;\n  line-height: 33px;\n  cursor: pointer;\n  outline: none;\n  border: none;\n  border-radius: 5px; }\n  .btn-submit:hover {\n    opacity: 0.8; }\n  .btn-submit:active {\n    color: #000; }\n\n.btn-sort {\n  display: inline-block;\n  margin-left: 14px;\n  padding: 0 5px;\n  font-size: 14px;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  cursor: pointer; }\n  .btn-sorthover {\n    background: #6F6F6F;\n    color: #fff; }\n\n.btn-delete, .btn-edit {\n  display: inline-block;\n  min-width: 50px;\n  line-height: 22px;\n  text-align: center;\n  border: 1px solid #ccc;\n  border-radius: 5px;\n  font-size: 12px;\n  font-family: '\\5B8B\\4F53'; }\n  .btn-delete:hover, .btn-edit:hover {\n    background: #6F6F6F;\n    color: #fff; }\n\n.btn-delete {\n  background: #D9534F;\n  color: #fff; }\n\n.btn-search {\n  margin-left: 20px;\n  width: 60px;\n  height: 33px;\n  background: #313131;\n  color: #fff;\n  text-align: center;\n  font-size: 14px;\n  line-height: 33px;\n  cursor: pointer;\n  outline: none;\n  border: none;\n  border-radius: 5px; }\n  .btn-search:hover {\n    opacity: 0.8; }\n\n#content table .operate a, .state a {\n  color: #06A2E9; }\n\n#content table .state a {\n  display: block;\n  color: #06A2E9; }\n\n.tb-40-wh {\n  width: 40px;\n  line-height: 25px;\n  text-align: center;\n  font-size: 14px; }\n\n#content table {\n  padding-bottom: 20px;\n  width: 1100px;\n  font-size: 14px; }\n\n#content table th, td {\n  padding: 5px 14px 5px 14px;\n  max-width: 140px;\n  font-weight: normal;\n  text-align: left;\n  overflow: hidden;\n  word-break: break-all; }\n\n.fa {\n  margin: 2px 4px 0 0; }\n\n.main .search input {\n  padding: 6px 12px;\n  height: 34px;\n  font-size: 14px; }\n\n.main .search select {\n  padding: 6px 12px; }\n\ninput, select, textarea {\n  border: 1px solid #ccc; }\n\ninput:focus, select:focus, textarea:focus {\n  border: 1px solid #66BAF6;\n  outline: none; }\n\n.main .option {\n  line-height: 45px; }\n\n.form-label {\n  display: inline-block;\n  margin-right: 10px;\n  width: 140px;\n  text-align: right; }\n\ninput, select, textarea {\n  border: 1px solid #ccc; }\n\ninput:focus, select:focus, textarea:focus {\n  border: 1px solid #66BAF6;\n  outline: none; }\n\n.option input[type=\"text\"] {\n  padding: 6px 12px;\n  height: 34px;\n  font-size: 14px; }\n\n.option input[type=\"radio\"] {\n  margin: 0 10px; }\n\n.option input[type=\"checkbox\"] {\n  margin: 0 10px; }\n\n.option select {\n  padding: 6px 12px; }\n\n.option textarea {\n  padding: 6px 10px;\n  width: 460px;\n  height: 60px;\n  vertical-align: text-top;\n  resize: none; }\n\n.option .wrapper {\n  display: inline-block;\n  width: 650px; }\n\n.option span {\n  display: inline-block; }\n\n.editor-box {\n  margin: -30px 0 0 155px; }\n\n#editor_id {\n  width: 700px;\n  height: 600px; }\n\n.cover-img {\n  vertical-align: text-top;\n  width: 180px;\n  height: 125px; }\n\n.cover {\n  display: inline-block; }\n  .cover .buttonText {\n    outline: none;\n    cursor: pointer; }\n  .cover .form-control {\n    cursor: not-allowed; }\n\n#docManage-cover {\n  border: 0; }\n\n#loading {\n  display: block;\n  height: 32px;\n  width: 32px;\n  margin: 30px;\n  background: url(" + __webpack_require__(4) + ") no-repeat; }\n", ""]);
 
 // exports
 
@@ -732,7 +734,7 @@ user.parseData = function(data) {
                         data[i].sort + 
                     '">',
             "id": data[i].id,
-            "name": user.addPrefix(data[i].name, data[i].pid),
+            "title": user.addPrefix(data[i].title, data[i].pid),
             "type": data[i].type,
             "model_id": data[i].model_id,
             "pid": data[i].pid,
@@ -747,19 +749,91 @@ user.parseData = function(data) {
     }
     return formdata;
 }
+// 表单初始化
+user.formInit = function () {
+    $.ajax({
+        type: 'POST',
+        url: user.SERVER_URL + '/category/manage',
+        success: function(data){
+            if(typeof data === 'string') {
+            data = JSON.parse(data);
+            }
+            var status = data.code;//状态码
+            if (status == 200) {
+                var aaData = data.category.category;
+                console.log(aaData);
+                var top = [];
+                // 表格解析
+                var str = '<option value="0" selected="selected">==全部==</option>';
+                for(var i = 0; i < aaData.length; i++) {
+                    // 栏目名称分级显示
+                    if (aaData[i].pid == 0) {
+                        top.push(aaData[i].id);
+                    }        
+                }
+                for (var i = 0; i < top.length; i++) {
+                    str +=  '<option value="' +
+                            aaData[i].id +
+                        '">' +
+                            aaData[i].name +
+                        '</option>';
+                    for(var j = 0; j < aaData.length; j++) {
+                        // 栏目名称分级显示
+                        if (aaData[j].pid == top[i]) {
+                            str +=  '<option value="' +
+                            aaData[j].id +
+                                '">|--' +
+                            aaData[j].name +
+                            '</option>';
+                        }        
+                    }
+                }
+                $('#search-cid').html(str);
+            }
+            else $.notice("提示！", "服务器连接失败!");
+        }
+    });
+}
 // 绘制表格
 user.drawTable = function(data) {
     var $frag = $(document.createDocumentFragment());
     var $table = $('table');
     var $ths = $table.find('th');
-
+    var top = [];
+    var topID = [];
+ 
     for(var i = 0; i < data.length; i++) {
-        var $tr = $('<tr data-id="' + data[i].id + '"></tr>');
-        for(var j = 0; j < $ths.length; j++) {
-            $tr.append('<td>' + data[i][$ths.eq(j).attr('data-name')] + '</td');
+        // 栏目名称分级显示
+        if (data[i].pid == 0) {
+            topID.push(data[i].id);
+            top.push(i);
+        }        
+    }
+    for (var i = 0; i < topID.length; i++) {
+        var $tr = $('<tr data-id="' + topID[i] + '"></tr>');
+        for(var t = 0; t < $ths.length; t++) {
+            $tr.append('<td>' + data[top[i]][$ths.eq(t).attr('data-name')] + '</td');
         }
         $frag.append($tr);
+        for(var j = 0; j < data.length; j++) {
+            // 栏目名称分级显示
+            if (data[j].pid == topID[i]) {
+                var $tr = $('<tr data-id="' + data[j].id + '"></tr>');
+                for(var t = 0; t < $ths.length; t++) {
+                    $tr.append('<td>' + data[j][$ths.eq(t).attr('data-name')] + '</td');
+                }
+                $frag.append($tr);
+            }        
+        }
     }
+    // // 表格解析
+    // for(var i = 0; i < data.length; i++) {
+    //     var $tr = $('<tr data-id="' + data[i].id + '"></tr>');
+    //     for(var j = 0; j < $ths.length; j++) {
+    //         $tr.append('<td>' + data[i][$ths.eq(j).attr('data-name')] + '</td');
+    //     }
+    //     $frag.append($tr);
+    // }
     $table.find('tbody').empty().append($frag);
 };
 // 绑定操作事件

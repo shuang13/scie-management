@@ -5,8 +5,10 @@
     <title>后台管理系统</title>
     <!-- 字体图标库 -->
     <link rel="stylesheet" href="../../../lib/font-awesome/css/font-awesome.min.css">
-    <!-- 弹窗样式插件 -->
+    <!-- 弹窗插件样式 -->
     <link rel="stylesheet" href="../../../lib/notice/css/jquery.notice.css">
+    <!-- 分页条插件样式 -->
+    <link rel="stylesheet" href="../../../lib/jqueryPagination/css/jquery.pagination.css">
     <!-- 时间选择器样式 -->
     <!-- 默认 -->
     <!-- <link rel="stylesheet" href="../../../lib/flatpickr/themes/base16_flat.css"> -->
@@ -68,26 +70,20 @@
         </ul>
         <div class="main"> 
             <div class="search">
-                <label for="search-cid">栏目:</label>
-                <select id="search-cid">
-                        <option value="" selected="selected">学院概况</option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                        <option value="##"></option>
-                </select>
-                <label for="search-id">ID:</label>
-                <input id="search-id" type="text">
-                <label for="search-title">标题:</label>
-                <input id="search-title" type="text">
                 <label for="search-sort">排序方式:</label>
                 <select id="search-sort">
-                        <option value="pubdate" selected="selected">发布时间</option>
-                        <option value="update">更新时间</option>
+                        <option value="publish_date" selected="selected">发布时间</option>
+                        <option value="updated_at">更新时间</option>
                         <option value="id">文档ID</option>
                 </select>
+                <label for="search-cid">栏目:</label>
+                <select id="search-cid">
+                        <option value="" selected="selected">加载中...</option>
+                </select>
+
+                <label for="search-title">标题:</label>
+                <input id="search-title" type="text">
+                
                 <button class="btn-search">搜索</button>
             </div>
             <!-- 数据表格 -->
@@ -105,6 +101,7 @@
                 <tbody>
                 </tbody>
             </table>
+            <div id="pagination"></div>
         </div>
 
 </div>
@@ -115,6 +112,8 @@
     <script src="../../../lib/flatpickr/flatpickr.min.js"></script>
     <!-- 弹窗插件 -->
     <script src="../../../lib/notice/jquery.notice.js"></script>
+    <!-- 分页条插件 -->
+    <script src="../../../lib/jqueryPagination/js/jquery.pagination.min.js"></script>
 
 <script type="text/javascript" src="../../docManage/index/entry.js"></script></body>
 </html>
