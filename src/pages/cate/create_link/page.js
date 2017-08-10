@@ -34,7 +34,7 @@ user.fileUpload = function () {
     $.ajaxFileUpload({
         url: user.SERVER_URL + '/file/category/upload',
         secureuri: false,
-        fileElementId: 'doc-cover',
+        fileElementId: 'file-cover',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -54,7 +54,7 @@ user.submit = function () {
         title: $('#doc-title').val(),
         url: $('#link-url').val(),
         type: "link",
-        cover: $("#doc-cover").val()
+        cover: $("#file-cover").val()
 
     };
     console.log(ajaxArgs);
@@ -103,13 +103,13 @@ user.validate = function (ajaxArgs) {
 }
 
 $(document).ready(function () {
-    $('#doc-cover').filestyle({buttonText: "浏览"});
+    $('#file-cover').filestyle({buttonText: "浏览"});
     // 侧栏添加active
     $('.side-nav li').eq(0).find('a').addClass('active');    
     // 初始化
     user.formInit();
     // 文件上传
-    $('#doc-cover').on('change', user.fileUpload);
+    $('#file-cover').on('change', user.fileUpload);
     // 表单提交
     $('.btn-submit').on('click', user.submit);
 });

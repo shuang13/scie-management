@@ -87,11 +87,11 @@ function getFileName(o){
 }
 // 文件上传
 user.fileUpload = function () {
-    var filename = getFileName($('#docManage-cover').val());
+    var filename = getFileName($('#file-cover').val());
     $.ajaxFileUpload({
         url: user.SERVER_URL + '/file/article/upload',
         secureuri: false,
-        fileElementId: 'docManage-coverr',
+        fileElementId: 'file-cover',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -101,9 +101,9 @@ user.fileUpload = function () {
             setTimeout('$.closeNotice()',2000); 
             $('.cover-img').attr('src', 'C:/Users/1234/Downloads/软件/apache-tomcat-7.0.75/apache-tomcat-7.0.75/webapps/SCIEManagement/upload/' + filename);
             console.log(filename);
-            $("#docManage-cover").replaceWith('<input type="file" id="docManage-cover" name="docManage-cover" title="">');
-            $("#docManage-cover").attr('title', filename);
-            $('#docManage-cover').on('change', user.fileUpload);
+            $("#file-cover").replaceWith('<input type="file" id="file-cover" name="file-cover" title="">');
+            $("#file-cover").attr('title', filename);
+            $('#file-cover').on('change', user.fileUpload);
 
         }
     }); 
@@ -252,7 +252,7 @@ $(document).ready(function () {
         }
     });
     // 文件上传
-    $('#docManage-cover').on('change', user.fileUpload);
+    $('#file-cover').on('change', user.fileUpload);
     // 表单提交
     $('.btn-submit').on('click', user.submit);
 });

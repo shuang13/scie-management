@@ -31,7 +31,6 @@ user.formInit = function () {
 }
 // 更新数据
 user.update = function(data) {
-    console.log(data);
     $('#doc-title').val(data.title);
     $('#doc-name').val(data.name);
     // 是否显示栏目
@@ -86,7 +85,7 @@ user.fileUpload = function () {
     $.ajaxFileUpload({
         url: user.SERVER_URL + '/file/category/upload',
         secureuri: false,
-        fileElementId: 'doc-cover',
+        fileElementId: 'file-cover',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -111,7 +110,7 @@ user.submit = function (event) {
         title: $('#doc-title').val(),
         name: $('#doc-name').val(),
         type: "doc",
-        cover: $("#doc-cover").val(),
+        cover: $("#file-cover").val(),
         content: $('#editor_id').val(),
         display: $('input[name="display"]:checked').val(),
         nav: $('input[name="nav"]:checked').val(),
@@ -157,7 +156,7 @@ $(document).ready(function () {
     // 获取编辑文字id
     var urlinfo = window.location.href;
     var id = urlinfo.split("?")[1].split("=")[1];
-    $('#doc-cover').filestyle({buttonText: "浏览"});
+    $('#file-cover').filestyle({buttonText: "浏览"});
     // 富文本编辑器
     KindEditor.ready(function(K) {
                 window.editor = K.create('#editor_id');
@@ -189,7 +188,7 @@ $(document).ready(function () {
     // 初始化
     user.formInit();
     // 文件上传
-    $('#doc-cover').on('change', user.fileUpload);
+    $('#file-cover').on('change', user.fileUpload);
     // 表单提交
     $('.btn-submit').on('click', user.submit);
    

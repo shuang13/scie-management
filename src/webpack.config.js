@@ -23,7 +23,10 @@ module.exports = {
     'link/link_edit': './pages/link/link_edit/page.js',
     'docManage/index': './pages/docManage/index/page.js',  
     'docManage/doc_create': './pages/docManage/doc_create/page.js',
-    'docManage/doc_edit': './pages/docManage/doc_edit/page.js',    
+    'docManage/doc_edit': './pages/docManage/doc_edit/page.js',
+    'configManage/index': './pages/configManage/index/page.js',  
+    'configManage/config_create': './pages/configManage/config_create/page.js',
+    'configManage/config_edit': './pages/configManage/config_edit/page.js',    
   },   
   output: {  
     path: BUILD_PATH,   
@@ -164,6 +167,24 @@ module.exports = {
       filename: 'docManage/doc_edit/page.html',
       template: path.resolve(ROOT_PATH, './pages/docManage/doc_edit/html.js'),
       chunks: ['docManage/doc_edit']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello World app',
+      filename: 'configManage/index/page.html',
+      template: path.resolve(ROOT_PATH, './pages/configManage/index/html.js'),
+      chunks: ['configManage/index']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello World app',
+      filename: 'configManage/config_create/page.html',
+      template: path.resolve(ROOT_PATH, './pages/configManage/config_create/html.js'),
+      chunks: ['configManage/config_create']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello World app',
+      filename: 'configManage/config_edit/page.html',
+      template: path.resolve(ROOT_PATH, './pages/configManage/config_edit/html.js'),
+      chunks: ['configManage/config_edit']
     })
     
   ]

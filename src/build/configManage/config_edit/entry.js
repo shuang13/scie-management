@@ -60,11 +60,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 21);
+/******/ 	return __webpack_require__(__webpack_require__.s = 29);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__ (1);
@@ -94,7 +95,8 @@ module.exports = user;
 
 
 /***/ }),
-/* 1 */
+
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -125,7 +127,8 @@ if(false) {
 }
 
 /***/ }),
-/* 2 */
+
+/***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(undefined);
@@ -139,7 +142,135 @@ exports.push([module.i, "@charset \"UTF-8\";\n* {\n  margin: 0;\n  padding: 0;\n
 
 
 /***/ }),
-/* 3 */
+
+/***/ 29:
+/***/ (function(module, exports, __webpack_require__) {
+
+var user = __webpack_require__(0);
+
+// 更新数据
+user.update = function(data) {
+    $('#system-name').val(data.name),
+    $('#system-value').val(data.value),
+    $('#system-title').val(data.title),
+    $('#system-remark').val(data.remark),
+    $('#system-group option').eq(data.group - 1).attr("selected", "selected");
+    var i;
+    switch(data.type) {
+        case 'number':
+          i = 0;
+          break;
+        case 'text':
+          i = 1;
+          break;
+        case 'textarea':
+          i = 2;
+          break;
+        case 'boolean':
+          i = 3;
+          break;
+        case 'array':
+          i = 4;
+          break;
+    }
+    $('#system-type option').eq(i).attr("selected", "selected");
+}
+// 表单验证
+user.validate = function(ajaxArgs) {
+    var rCheckSpace = /^\s+$/;
+    if (rCheckSpace.test(ajaxArgs.title)) {
+        $.notice("提示！","链接名称不能为空！");
+        return false;
+    }
+    if (rCheckSpace.test(ajaxArgs.url)) {
+        $.notice("提示！","链接地址不能为空！");
+        return false;
+    }
+    return true;
+}
+
+// 提交创建
+user.submit = function (event) {
+    event.preventDefault();
+    // 获取编辑文字id
+    var urlinfo = window.location.href;
+    var id = urlinfo.split("?")[1].split("=")[1];
+    var updateData = {
+        id: id,
+        group: $('#system-group').val(),
+        name: $('#system-name').val(),
+        value: $('#system-value').val(),
+        title: $('#system-title').val(),
+        remark: $('#system-remark').val(),
+        type: $('#system-type').val(),
+        sort:'1'
+    };
+    // 验证
+    // user.validate(updateData);
+    console.log(updateData);
+    // 更新
+    $.ajax({
+        type: 'POST',
+        url: user.SERVER_URL + '/config/manage/update',
+        beforeSend: $.notice('提示！', '正在提交...', function () {
+            user.loading($('.jq-notice-context'));
+        }),
+        data: updateData,
+        success: function(data){
+            if(typeof data === 'string') {
+                data = JSON.parse(data);
+            }
+            var status = data.code;//状态码
+            console.log(data);
+            if(status == 200) {
+                $('.jq-notice-context').html('提交成功!');
+                setTimeout('window.location.href = "../index/page.html"',2000); 
+            } else {
+                $('.jq-notice-context').html('提交失败!');
+            }
+        }
+    });
+
+}
+$(document).ready(function () {
+    // 获取编辑文字id
+    var urlinfo = window.location.href;
+    var id = urlinfo.split("?")[1].split("=")[1];
+    // 侧栏添加active
+    $('.side-nav li').eq(3).find('a').addClass('active');
+    var ajaxArgs = {
+        id: id
+    }
+    // 获取栏目信息
+    $.ajax({
+        type: "POST",
+        url: user.SERVER_URL + '/config/manage/find',
+        data: ajaxArgs,
+        success: function (data) {
+            var status = data.code;//状态码
+                console.log(data);
+
+            if (status == 200) {
+                var aaData = data.config;
+
+                user.update(aaData);
+                console.log(data);
+
+            }
+            else $.notice("提示！","服务器连接失败!");
+        }
+    });
+
+    // 表单提交
+    $('.btn-submit').on('click', user.submit);
+   
+});
+
+
+
+/***/ }),
+
+/***/ 3:
 /***/ (function(module, exports) {
 
 /*
@@ -221,13 +352,15 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 4 */
+
+/***/ 4:
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,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"
 
 /***/ }),
-/* 5 */
+
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -586,7 +719,8 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 6 */
+
+/***/ 6:
 /***/ (function(module, exports) {
 
 
@@ -681,7 +815,8 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 7 */
+
+/***/ 7:
 /***/ (function(module, exports) {
 
 /* 通过sessionStorage检查和设置浏览器端的登录状态
@@ -720,137 +855,6 @@ module.exports = function (css) {
 module.exports = session;
 
 
-/***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var user = __webpack_require__(0);
-// 解析数据
-user.parseData = function(data) {
-    var formdata = [];
-    for(var i = 0; i < data.length; i++) {
-        formdata.push({
-            "id": data[i].id,
-            "sort": '<input class="tb-40-wh" type="text" value="' + 
-                        data[i].sort + 
-                    '">',
-            "title": data[i].title,
-            "url": data[i].url,
-            "operate": '<a class="btn-edit" href="../link_edit/page.html?id=' + data[i].id + '">' +
-                        '<i class="fa fa-edit"></i>编辑</a>' +
-                        '<a class="btn-delete" href="##">' + 
-                        '<i class="fa fa-remove"></i>删除</a>',
-        });
-    }
-    return formdata;
-}
-// 绘制表格
-user.drawTable = function(data) {
-    var $frag = $(document.createDocumentFragment());
-    var $table = $('table');
-    var $ths = $table.find('th');
-
-    for(var i = 0; i < data.length; i++) {
-        var $tr = $('<tr data-id="' + data[i].id + '"></tr>');
-        for(var j = 0; j < $ths.length; j++) {
-            $tr.append('<td>' + data[i][$ths.eq(j).attr('data-name')] + '</td');
-        }
-        $frag.append($tr);
-    }
-    $table.find('tbody').empty().append($frag);
-};
-// 绑定操作事件
-user.delete = function(event) {
-    event.preventDefault();
-    var $this = $(this);
-    $.notice('提示！', [
-        '<div class="discription_dialog">是否删除此栏目!</div>',
-        '<div class="divOperation">',
-            '<span class="true btn btn-danger">确认</span>',
-            '<span class="false btn btn-default">取消</span>',
-        '</div>'
-        ].join(''),
-        function () {
-            var $context = $('.jq-notice-context');
-            $context.find('.true').on('click', function (event) {
-                event.preventDefault();
-                // 参数
-                var ajaxArgs = {
-                    id: $this.closest('tr').attr('data-id')
-                }
-                $.ajax({
-                    type: "POST",
-                    url: user.SERVER_URL + '/link/delete',
-                    beforeSend: user.loading($('.jq-notice-context')),
-                    data: ajaxArgs,
-                    success: function (data) {
-                        if(typeof data == 'string') {
-                            data = JSON.parse(data);
-                        }
-                        var status = data.code;//状态码
-                        if (status == 200) {
-                            $('.jq-notice-context').html('删除成功!');
-                            setTimeout("location.reload()",1000); 
-                        }
-                    }
-                });    
-                
-            });
-            $context.find('.false').on('click', function () {
-                $.closeNotice();
-            });
-        }
-    );
-    
-}
-
-
-$(document).ready(function () {
-    // 侧栏添加active
-    $('.side-nav li').eq(6).find('a').addClass('active');
-    $.ajax({
-        type: "POST",
-        beforeSend: user.loading($('tbody')),
-        url: user.SERVER_URL + '/link/index',
-        success: function(data){
-            if(typeof data == 'string') {
-                data = JSON.parse(data);
-            }
-            var status = data.code;//状态码
-            if (status == 200) {
-                // 获取原始数据
-                var aaData = data.links.link;
-                console.log(data);
-            
-                // 数据解析
-                var new_data = user.parseData(aaData);
-                                
-                // 根据解析的结果，绘制表格
-                user.drawTable(new_data);
-                
-                // 栏目删除
-                $('.btn-delete').on('click', user.delete);
-                
-
-                
-                console.log(new_data);
-            }
-        }
-    });
-});
-
 /***/ })
-/******/ ]);
+
+/******/ });

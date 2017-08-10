@@ -2,11 +2,30 @@ var user = require('../../commons/common.js');
 
 // 更新数据
 user.update = function(data) {
-    $('#link-title').val(data.title);
-    
-    console.log(data.title);
-    $('#link-url').val(data.url);
-
+    $('#system-name').val(data.name),
+    $('#system-value').val(data.value),
+    $('#system-title').val(data.title),
+    $('#system-remark').val(data.remark),
+    $('#system-group option').eq(data.group - 1).attr("selected", "selected");
+    var i;
+    switch(data.type) {
+        case 'number':
+          i = 0;
+          break;
+        case 'text':
+          i = 1;
+          break;
+        case 'textarea':
+          i = 2;
+          break;
+        case 'boolean':
+          i = 3;
+          break;
+        case 'array':
+          i = 4;
+          break;
+    }
+    $('#system-type option').eq(i).attr("selected", "selected");
 }
 // 表单验证
 user.validate = function(ajaxArgs) {
@@ -29,18 +48,22 @@ user.submit = function (event) {
     var urlinfo = window.location.href;
     var id = urlinfo.split("?")[1].split("=")[1];
     var updateData = {
-            id: id,
-            title: $('#link-title').val(),
-            url:  $('#link-url').val(),
-            sort: 0
+        id: id,
+        group: $('#system-group').val(),
+        name: $('#system-name').val(),
+        value: $('#system-value').val(),
+        title: $('#system-title').val(),
+        remark: $('#system-remark').val(),
+        type: $('#system-type').val(),
+        sort:'1'
     };
     // 验证
-    user.validate(updateData);
+    // user.validate(updateData);
     console.log(updateData);
     // 更新
     $.ajax({
         type: 'POST',
-        url: user.SERVER_URL + '/link/update',
+        url: user.SERVER_URL + '/config/manage/update',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -73,14 +96,14 @@ $(document).ready(function () {
     // 获取栏目信息
     $.ajax({
         type: "POST",
-        url: user.SERVER_URL + '/link/find',
+        url: user.SERVER_URL + '/config/manage/find',
         data: ajaxArgs,
         success: function (data) {
             var status = data.code;//状态码
                 console.log(data);
 
             if (status == 200) {
-                var aaData = data.link;
+                var aaData = data.config;
 
                 user.update(aaData);
                 console.log(data);

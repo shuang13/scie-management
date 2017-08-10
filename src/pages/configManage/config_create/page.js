@@ -4,17 +4,21 @@ var user = require('../../commons/common.js');
 user.submit = function () {
     event.preventDefault();
     var ajaxArgs = {
-        title: $('#link-title').val(),
-        url: $('#link-url').val(),
+        group: $('#system-group').val(),
+        name: $('#system-name').val(),
+        value: $('#system-value').val(),
+        title: $('#system-title').val(),
+        remark: $('#system-remark').val(),
+        type: $('#system-type').val(),
         sort:'1'
     };
     console.log(ajaxArgs);
-    if(!user.validate(ajaxArgs)) {
-        return false;
-    }
+    // if(!user.validate(ajaxArgs)) {
+    //     return false;
+    // }
     $.ajax({
         type: 'POST',
-        url: user.SERVER_URL + '/link/add',
+        url: user.SERVER_URL + '/config/manage/add',
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
         }),
@@ -27,7 +31,7 @@ user.submit = function () {
             console.log(data);
             if(status == 200) {
                 $('.jq-notice-context').html('提交成功!');
-                setTimeout('window.location.href = "../index/page.html"',2000); 
+                setTimeout('window.location.href = "../index/page.html?group=1"',2000); 
             } else {
                 $('.jq-notice-context').html('提交失败!');
             }
@@ -49,7 +53,7 @@ user.validate = function (ajaxArgs) {
 }
 $(document).ready(function () {
     // 侧栏添加active
-    $('.side-nav li').eq(6).find('a').addClass('active');
+    $('.side-nav li').eq(1).find('a').addClass('active');
 
     // 表单提交
     $('.btn-submit').on('click', user.submit);
