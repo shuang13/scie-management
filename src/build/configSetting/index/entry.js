@@ -385,7 +385,7 @@ user.submit = function (event) {
     // 更新
     $.ajax({
         type: 'POST',
-        url: user.SERVER_URL + '/config/set/inex',
+        url: user.SERVER_URL + '/config/set/index',
         dataType:"json",
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));

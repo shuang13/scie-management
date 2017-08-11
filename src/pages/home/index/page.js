@@ -11,6 +11,7 @@ user.submit = function () {
     // if(!user.validate(ajaxArgs)) {
     //     return false;
     // }
+    console.log(ajaxArgs);
     $.ajax({
         type: 'POST',
         url: user.SERVER_URL + '/admin/update/user',

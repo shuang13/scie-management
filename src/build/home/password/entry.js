@@ -242,6 +242,7 @@ user.submit = function () {
         my_new_password: $('#new_password').val(),
         my_repeat_new_password: $('#repeat_new_password').val()
     };
+    console.log(ajaxArgs);
     // if(!user.validate(ajaxArgs)) {
     //     return false;
     // }
