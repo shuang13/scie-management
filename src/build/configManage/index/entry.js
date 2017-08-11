@@ -254,7 +254,7 @@ $(document).ready(function () {
             var status = data.code;//状态码
             if (status == 200) {
                 // 获取原始数据
-                var aaData = data.configs.article;
+                var aaData = data.configs.config;
                 console.log(data);
             
                 // 数据解析

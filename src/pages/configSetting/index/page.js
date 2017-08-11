@@ -8,14 +8,13 @@ user.parseData = function(data) {
             "id": data[i].id,
             "name": data[i].name,
             "type": data[i].type,
-            "value": user.updateValue(data[i].type),
+            "value": user.updateValue(data[i].type, i),
             "title": data[i].title
         });
     }
     return formdata;
 }
-user.updateValue = function (type) {
-    var i;
+user.updateValue = function (type, i) {
     var str = '';
     switch(type) {
         case 'number':
@@ -29,9 +28,9 @@ user.updateValue = function (type) {
             break;
         case 'boolean':
             str = '<div class="option"><label for="nav-t">是</label>' +
-                '<input type="radio" class="system-value-t" name="system-value" value="1">' +
+                '<input type="radio" class="system-value-t" name="system-value' + i + '" value="1">' +
                 '<label for="nav-f">否</label>' +
-                '<input type="radio" class="system-value-f" name="system-value" value="0"></div>'
+                '<input type="radio" class="system-value-f" name="system-value' + i + '" value="0"></div>'
             break;
         case 'array':
             str = '<div class="option"><textarea name="system-value" class="system-value"></textarea></div>'
@@ -49,7 +48,9 @@ user.update = function(data) {
             if (data[i].value == 1) {
                 $('.option').eq(i).find('input[type=radio]').eq(0).attr("checked", "checked");
             }
-            else $('.option').eq(i).find('input[type=radio]').eq(1).attr("checked", "checked");
+            else {
+                $('.option').eq(i).find('input[type=radio]').eq(1).attr("checked", "checked");
+            }
         }
     }
 }
@@ -123,13 +124,24 @@ user.submit = function (event) {
     var group = urlinfo.split("?")[1].split("=")[1];
     var length = $('.system-value').length;
     var system_value = [];
+    console.log($('.system-value'));
 
     for (var i = 0; i < length; i++) {
+
+        if (user.aaData[i].type == 'boolean') {
+            system_value.push({
+                id: $('input[name="system-value' + i + '"]:checked').parent().parent().parent().attr('data-id'),
+                value:  $('input[name="system-value' + i + '"]:checked').val()
+            });
+        }
         system_value.push({
-            id: user.aaData[i].id,
+            id: $('.system-value').eq(i).parent().parent().parent().attr('data-id'),
             value: $('.system-value').eq(i).val()
         });
+        console.log($('.system-value').eq(i).parent().parent().parent().attr('data-id'));
     }
+    console.log(system_value);
+
     var updateData = {
         group: group,
         values: system_value
@@ -140,7 +152,7 @@ user.submit = function (event) {
     // 更新
     $.ajax({
         type: 'POST',
-        url: user.SERVER_URL + '/config/set/index',
+        url: user.SERVER_URL + '/config/set/inex',
         dataType:"json",
         beforeSend: $.notice('提示！', '正在提交...', function () {
             user.loading($('.jq-notice-context'));
