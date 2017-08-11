@@ -85,3 +85,10 @@ input:focus, select:focus, textarea:focus{
 #file-cover{
     border: 0;
 }
+.option .system-value {
+    padding: 6px 10px;
+    width: 350px;
+    height: 60px;
+    vertical-align: text-top;
+    resize: none;
+}

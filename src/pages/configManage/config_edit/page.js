@@ -76,7 +76,7 @@ user.submit = function (event) {
             console.log(data);
             if(status == 200) {
                 $('.jq-notice-context').html('提交成功!');
-                setTimeout('window.location.href = "../index/page.html"',2000); 
+                setTimeout('window.location.href = "../index/page.html?group=1"',2000); 
             } else {
                 $('.jq-notice-context').html('提交失败!');
             }
