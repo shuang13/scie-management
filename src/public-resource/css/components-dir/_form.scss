@@ -30,7 +30,7 @@ input:focus, select:focus, textarea:focus{
     border: 1px solid #66BAF6;
     outline: none;
 }
-.option input[type="text"]{
+.option input[type="text"], .option input[type="password"]{
     padding: 6px 12px;
     height: 34px;
     font-size: 14px;

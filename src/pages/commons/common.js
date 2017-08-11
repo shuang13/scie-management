@@ -3,6 +3,7 @@ var session = require('./session.js');
 var user = {}; //全局对象
 user.session = session;
 user.session.setLoginState('admin');
+var my_username = user.session.getLoginState();
 
 user.SERVER_URL = 'http://127.0.0.1:80/SCIEManagement';
 // 加载图标
@@ -12,6 +13,7 @@ user.loading = function (element) {
 }
 
 $(function () {
+    $('#current_username').html(my_username);
     $('.dropdown-toggle').on('mouseenter', function () {
         $('.user-nav').slideDown("100");
     });

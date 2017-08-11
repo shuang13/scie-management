@@ -62,74 +62,40 @@
 </div>
 <div id="content">
             <div class="page-header">
-            <p>添加内容</p>
+            <p>用户设置</p>
         </div>
         <ul class="page-nav">
-           <li><a href="../index/page.html">内容管理</a></li>
-           <li><a class="nav-active" href="../doc_create/page.html">添加内容</a></li>
+           <li><a href="../../home/index/page.html">修改个人资料</a></li>
+           <li><a class="nav-active" href="../../home/password/page.html">修改密码</a></li>
         </ul>
         <div class="main"> 
             <form action="##">
                 <div class="option">
-                    <label class="form-label">封面图片</label>
-                    <img class="cover-img" > 
+                    <label class="form-label" for="username">用户名:</label>
+                    <span id="username"></span>
                 </div>
                 <div class="option">
-                    <p class="form-label">选择封面图</p>
-                    <div class="cover">
-                        <input type="file" id="file-cover" name="file-cover">
-                    </div>
+                    <label class="form-label" for="last-time">最后登录时间:</label>
+                    <span id="last-time"></span>
                 </div>
                 <div class="option">
-                    <!-- 时间选择器 -->
-                    <p class="form-label">选择时间</p>
-                    <input type="text" id="time-pick">
-                </div>
-
-            </form>
-            <form action="##">
-                <div class="option">
-                    <p class="form-label">栏目:</p>
-                    <select id="cate-select">
-                        <option value="" selected="selected">加载中...</option>
-
-                    </select>
+                    <label class="form-label" for="last-ip">最后登录IP:</label>
+                    <span id="last-ip"></span>
                 </div>
                 <div class="option">
-                    <p class="form-label">标题:</p>
-                    <input type="text" id="title">
+                    <label class="form-label" for="password">原密码:</label>
+                    <input id="password" type="password">                
                 </div>
                 <div class="option">
-                    <p class="form-label">关键词:</p>
-                    <input type="text" id="keywords">
+                    <label class="form-label" for="new-password">新密码:</label>
+                    <input id="new-password" type="password">
                 </div>
                 <div class="option">
-                    <p class="form-label">摘要:</p>
-                    <textarea name="description" id="description"></textarea>
+                    <label class="form-label" for="repeat_new_password">确认新密码:</label>
+                    <input id="repeat_new_password" type="password">
                 </div>
                 <div class="option">
-                    <p class="form-label">来源:</p>
-                    <select id="copyfrom-select">
-                        <option value="" selected="selected">选择来源</option>
-                    </select>
-                </div>
-                 <!-- 富文本编辑器 http://kindeditor.net/docs/usage.html-->
-                <div class="option">
-                    <p class="form-label">内容:</p>
-                    <div class="editor-box">
-                        <textarea id="editor_id" name="content">
-                            &lt;strong&gt;HTML内容&lt;/strong&gt;
-                        </textarea>
-                    </div>
-                </div>
-                <div class="option">
-                    <p class="form-label">推荐位:</p>
-                    <input type="checkbox" value="1" name="message">网站首页推荐
-                    <input type="checkbox" value="2" name="message">首页图片推荐 
-                    <input type="checkbox" value="4" name="message">首页焦点推荐
-                </div>
-                <div class="option">
-                    <button class="btn-submit" type="submit">确认添加</button>
+                    <button class="btn-submit" type="submit">修改</button>
                 </div>
             </form>            
         </div>
@@ -145,5 +111,5 @@
     <!-- 分页条插件 -->
     <script src="../../../lib/jqueryPagination/js/jquery.pagination.min.js"></script>
 
-<script type="text/javascript" src="../../docManage/doc_create/entry.js"></script></body>
+<script type="text/javascript" src="../../home/password/entry.js"></script></body>
 </html>

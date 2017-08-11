@@ -60,11 +60,12 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 12);
+/******/ 	return __webpack_require__(__webpack_require__.s = 31);
 /******/ })
 /************************************************************************/
-/******/ ([
-/* 0 */
+/******/ ({
+
+/***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__ (1);
@@ -96,7 +97,8 @@ module.exports = user;
 
 
 /***/ }),
-/* 1 */
+
+/***/ 1:
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
@@ -127,7 +129,8 @@ if(false) {
 }
 
 /***/ }),
-/* 2 */
+
+/***/ 2:
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(3)(undefined);
@@ -141,7 +144,8 @@ exports.push([module.i, "@charset \"UTF-8\";\n* {\n  margin: 0;\n  padding: 0;\n
 
 
 /***/ }),
-/* 3 */
+
+/***/ 3:
 /***/ (function(module, exports) {
 
 /*
@@ -223,13 +227,105 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 4 */
+
+/***/ 31:
+/***/ (function(module, exports, __webpack_require__) {
+
+var user = __webpack_require__(0);
+var my_id = user.session.getUserId;
+// 表单提交
+user.submit = function () {
+    event.preventDefault();
+    var ajaxArgs = {
+        my_id: my_id,
+        my_realname: $('#realname').val(),
+        my_email: $('#email').val()
+    };
+    // if(!user.validate(ajaxArgs)) {
+    //     return false;
+    // }
+    $.ajax({
+        type: 'POST',
+        url: user.SERVER_URL + '/admin/update/user',
+        beforeSend: $.notice('提示！', '正在提交...', function () {
+            user.loading($('.jq-notice-context'));
+        }),
+        data: ajaxArgs,
+        success: function(data){
+            if(typeof data === 'string') {
+                data = JSON.parse(data);
+            }
+            var status = data.code;//状态码
+            if(status == 200) {
+                $('.jq-notice-context').html('提交成功!');
+                setTimeout('window.location.href = "../index/page.html"',2000); 
+            } else {
+                $('.jq-notice-context').html('提交失败!');
+            }
+        }
+    });
+}
+// 更新数据
+user.update = function(data) {
+    var lastTime = new Date(data.last_time);
+    console.log(data);
+    $('#username').html(data.username);
+    $('#last-ip').html(data.last_ip);
+
+    $('#last-time').html(lastTime.toLocaleString());
+    $('#email').val(data.email);
+    $('#realname').val(data.realname);
+}
+user.validate = function (ajaxArgs) {
+
+    var rCheckSpace = /^\s+$/;
+    if (rCheckSpace.test(ajaxArgs.title)) {
+        $.notice("提示！", "内容不能为空！");
+        return false;
+    }
+    if (rCheckSpace.test(ajaxArgs.url)) {
+        $.notice("提示！", "内容不能为空！");
+        return false;
+    }
+    return true;
+}
+$(document).ready(function () {
+    var ajaxArgs = {
+        my_id: my_id
+    }
+    // 获取栏目信息
+    $.ajax({
+        type: "POST",
+        url: user.SERVER_URL + '/admin/find/info',
+        data: ajaxArgs,
+        success: function (data) {
+            var status = data.code;//状态码
+                console.log(data);
+
+            if (status == 200) {
+                var aaData = data.admin;
+                user.update(aaData);
+            }
+            else $.notice("提示！","服务器连接失败!");
+        }
+    });
+
+    // 表单提交
+    $('.btn-submit').on('click', user.submit);
+});
+
+
+
+/***/ }),
+
+/***/ 4:
 /***/ (function(module, exports) {
 
 module.exports = "data:image/png;base64,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"
 
 /***/ }),
-/* 5 */
+
+/***/ 5:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -588,7 +684,8 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 6 */
+
+/***/ 6:
 /***/ (function(module, exports) {
 
 
@@ -683,7 +780,8 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 7 */
+
+/***/ 7:
 /***/ (function(module, exports) {
 
 /* 通过sessionStorage检查和设置浏览器端的登录状态
@@ -722,211 +820,6 @@ module.exports = function (css) {
 module.exports = session;
 
 
-/***/ }),
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var user = __webpack_require__(0);
-// 表单初始化
-user.formInit = function () {
-    $.ajax({
-        type: 'POST',
-        url: user.SERVER_URL + '/category/manage',
-        success: function(data){
-            if(typeof data === 'string') {
-            data = JSON.parse(data);
-            }
-            var status = data.code;//状态码
-            if (status == 200) {
-                var aaData = data.category.category;
-                // 表格解析
-                var str = '<option value="0" selected="selected">作为一级栏目</option>';
-                for(var i = 0; i < aaData.length; i++) {
-                    // 栏目名称分级显示
-                    if (aaData[i].pid == 0) {
-                        str +=  '<option value="' +
-                            aaData[i].id +
-                        '">' +
-                            aaData[i].name +
-                        '</option>';
-                    }        
-                }
-                $('#pid').html(str);
-            }
-            else $.notice("提示！", "服务器连接失败!");
-        }
-    });
-}
-// 更新数据
-user.update = function(data) {
-    $('#doc-title').val(data.title);
-    $('#doc-name').val(data.name);
-    // 是否显示栏目
-    if (data.display == 1) {
-        $('input[name="display"]').eq(0).attr("checked", "checked");
-    }
-    else $('input[name="display"]').eq(1).attr("checked", "checked");
-    // 是否显示导航
-    if (data.nav == 1) {
-        $('input[name="nav"]').eq(0).attr("checked", "checked");
-    }
-    else $('input[name="nav"]').eq(1).attr("checked", "checked");
-    // 是否允许投稿
-    if (data.publish == 1) {
-        $('input[name="publish"]').eq(0).attr("checked", "checked");
-    }
-    else $('input[name="publish"]').eq(1).attr("checked", "checked");
-    // 是否允许评论
-    if (data.comment == 1) {
-        $('input[name="comment"]').eq(0).attr("checked", "checked");
-    }
-    else $('input[name="comment"]').eq(1).attr("checked", "checked");
-    // 审稿
-    $('#check-level option').eq(data.check_level).attr("selected", "selected");
-    $('#meta-title').val(data.meta_title);
-    $('#meta-keywords').val(data.meta_keywords);
-    $('#meta-description').val(data.meta_description);
-    editor.html(data.content);
-
-}
-// 表单验证
-user.validate = function(ajaxArgs) {
-    var titleCheck = /[^x00-xff]/;
-    if (!titleCheck.test(ajaxArgs.title)) {
-        $.notice("提示！","栏目名称为中文，且不能为空！");
-        return false;
-    }
-    var nameCheck = /^[a-zA-Z]{3,7}$/;
-    if (!nameCheck.test(ajaxArgs.name)) {
-        $.notice("提示！","英文名称为英文，且不能为空！");
-        return false;
-    }
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.content)) {
-        $.notice("提示！","内容不能为空！");
-        return false;
-    }
-    return true;
-}
-// 文件上传
-user.fileUpload = function () {
-    $.ajaxFileUpload({
-        url: user.SERVER_URL + '/file/category/upload',
-        secureuri: false,
-        fileElementId: 'file-cover',
-        beforeSend: $.notice('提示！', '正在提交...', function () {
-            user.loading($('.jq-notice-context'));
-        }),
-        dataType: 'json',
-        success: function (data) {
-            $('.jq-notice-context').html('上传成功!');
-            setTimeout('$.closeNotice()',2000); 
-        }
-    }); 
-}
-// 提交创建
-user.submit = function (event) {
-    event.preventDefault();
-    // 获取编辑文字id
-    var urlinfo = window.location.href;
-    var id = urlinfo.split("?")[1].split("=")[1];
-    // 富文本编辑器
-    editor.sync();
-    var updateData = {
-        id: id,
-        pid: $('#pid').val(),
-        title: $('#doc-title').val(),
-        name: $('#doc-name').val(),
-        type: "doc",
-        cover: $("#file-cover").val(),
-        content: $('#editor_id').val(),
-        display: $('input[name="display"]:checked').val(),
-        nav: $('input[name="nav"]:checked').val(),
-        publish: $('input[name="publish"]:checked').val(),
-        comment: $('input[name="comment"]:checked').val(),
-        check_level: $('#check-level').val(),
-        template_index: $('#template-index').val(),
-        template_list: $('#template-list').val(),
-        template_detail: $('#template-detail').val(),
-        meta_title: $('#meta-title').val(),
-        meta_keywords: $('#meta-keywords').val(),
-        meta_description: $('#meta-description').val()
-    };
-    // 验证
-    user.validate(updateData);
-    console.log(updateData);
-    // 更新
-    $.ajax({
-        type: 'POST',
-        url: user.SERVER_URL + '/category/update/doc',
-        beforeSend: $.notice('提示！', '正在提交...', function () {
-            user.loading($('.jq-notice-context'));
-        }),
-        data: updateData,
-        success: function(data){
-            if(typeof data === 'string') {
-                data = JSON.parse(data);
-            }
-            var status = data.code;//状态码
-            console.log(data);
-            if(status == 200) {
-                $('.jq-notice-context').html('提交成功!');
-                setTimeout('window.location.href = "../index/page.html"',2000); 
-            } else {
-                $('.jq-notice-context').html('提交失败!');
-            }
-        }
-    });
-
-}
-
-$(document).ready(function () {
-    // 获取编辑文字id
-    var urlinfo = window.location.href;
-    var id = urlinfo.split("?")[1].split("=")[1];
-    $('#file-cover').filestyle({buttonText: "浏览"});
-    // 富文本编辑器
-    KindEditor.ready(function(K) {
-                window.editor = K.create('#editor_id');
-        });
-    // 侧栏添加active
-    $('.side-nav li').eq(0).find('a').addClass('active');
-    var ajaxArgs = {
-        id: id
-    }
-    // 获取栏目信息
-    $.ajax({
-        type: "POST",
-        url: user.SERVER_URL + '/category/find',
-        data: ajaxArgs,
-        success: function (data) {
-            var status = data.code;//状态码
-                console.log(data);
-
-            if (status == 200) {
-                var Doc = data.category;
-                user.update(Doc);
-                window.Doc = Doc;
-                console.log(Doc);
-            }
-        else $.notice("提示！","服务器连接失败!");
-        }
-    });
-
-    // 初始化
-    user.formInit();
-    // 文件上传
-    $('#file-cover').on('change', user.fileUpload);
-    // 表单提交
-    $('.btn-submit').on('click', user.submit);
-   
-});
-
-
-
 /***/ })
-/******/ ]);
+
+/******/ });

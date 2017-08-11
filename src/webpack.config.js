@@ -27,7 +27,9 @@ module.exports = {
     'configManage/index': './pages/configManage/index/page.js',  
     'configManage/config_create': './pages/configManage/config_create/page.js',
     'configManage/config_edit': './pages/configManage/config_edit/page.js',    
-    'configSetting/index': './pages/configSetting/index/page.js',  
+    'configSetting/index': './pages/configSetting/index/page.js', 
+    'home/index': './pages/home/index/page.js',  
+    'home/password': './pages/home/password/page.js', 
   },   
   output: {  
     path: BUILD_PATH,   
@@ -190,9 +192,22 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Hello World app',
       filename: 'configSetting/index/page.html',
-      template: path.resolve(ROOT_PATH, './pages/configSetting/index//html.js'),
+      template: path.resolve(ROOT_PATH, './pages/configSetting/index/html.js'),
       chunks: ['configSetting/index']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello World app',
+      filename: 'home/index/page.html',
+      template: path.resolve(ROOT_PATH, './pages/home/index/html.js'),
+      chunks: ['home/index']
+    }),
+    new HtmlWebpackPlugin({
+      title: 'Hello World app',
+      filename: 'home/password/page.html',
+      template: path.resolve(ROOT_PATH, './pages/home/password/html.js'),
+      chunks: ['home/password']
     })
+    
     
   ]
   
