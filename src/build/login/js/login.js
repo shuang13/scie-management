@@ -27,78 +27,93 @@ session.setLoginState = function (userInfo) {
 };
 
 
-(document).ready(function () {
+$(document).ready(function () {
     var $form = $('form');
     var $user = $form.find('#username');
     var $passwd = $form.find('#password');
     var $submit = $form.find('.login-submit');
-
+    var serverurl = 'http://127.0.0.1/SCIEManagement';
+    $('.ver-img').attr('src', serverurl + '/kaptcha.jpg');
+    $('.fa-refresh').on('click', function () {
+        $('.ver-img').attr('src', serverurl + '/kaptcha.jpg');
+    })
+    // 更新
+    // $.ajax({
+    //     type: 'GET',
+    //     url: 'http://127.0.0.1/SCIEManagement/kaptcha.jpg',
+    //     // beforeSend: $.notice('提示！', '正在提交...', function () {
+    //     //     user.loading($('.jq-notice-context'));
+    //     // }),
+    //     success: function(data){
+    //         if(typeof data === 'string') {
+    //             data = JSON.parse(data);
+    //         }
+    //         console.log(data);
+    //         var status = data.code;//状态码
+    //         // if(status == 200) {
+    //         //     $('.jq-notice-context').html('提交成功!');
+    //         //     setTimeout('window.location.href = "../index/page.html"',2000); 
+    //         // } else {
+    //         //     $('.jq-notice-context').html('提交失败,' + message + '!');
+    //         // }
+    //     }
+    // });
     $submit.on('click', function (event) {
         // 阻止默认跳转
         event.preventDefault();
 
         // 每次点击按钮时，读取用户名和密码
-        var info = {
+        var ajaxArgs = {
             username: $user.val(),
+            verification: $('#ver-code').val(),
             password: $passwd.val()
         };
-
-        // 检测用户名是否为空
-        if(info.username == '') {
-            alert('提示：请输入用户名！');
-            return ;
-        }
-
-        // 检测密码是否为空
-        if(info.password == '') {
-            alert('提示：请输入密码！');
-            return ;
-        }
-
-        $.post('##',
-            'stuNum=' + info.username +
-            '&idNum=' + info.password,
-            function (res) {
-                var data;
-                var storage = {};
-
-                if(typeof res === 'string') {
-                    data = JSON.parse(res);
-                } else {
-                    data = res;
+        console.log(ajaxArgs);
+        $.ajax({
+            type: "POST",
+            url: "http://127.0.0.1/SCIEManagement/admin/login",
+            data: ajaxArgs,
+            success: function(data){
+                if(typeof data === 'string') {
+                    data = JSON.parse(data);
+                    console.log(data);
                 }
+                    console.log(data);
+                
                 // 登录成功
                 if(data.status == 200) {
-                    // 保存用户名
-                    storage.username = info.username;
+                    console.log(data);
+                    // // 保存用户名
+                    // storage.username = info.username;
 
-                    // 保存到sessionStorage中
-                    session.setLoginState(storage);
+                    // // 保存到sessionStorage中
+                    // session.setLoginState(storage);
 
     
-                    $.ajax({
-                        type: "POST",
-                        url: "login.php",
-                        data: info,
-                        success: function(data){
-                            flag = data;
-                            alert("登录成功！");
-                            if (flag==1) {
-                                window.location.href = 'user-index.html';
+                    // $.ajax({
+                    //     type: "POST",
+                    //     url: "login.php",
+                    //     data: info,
+                    //     success: function(data){
+                    //         flag = data;
+                    //         alert("登录成功！");
+                    //         if (flag==1) {
+                    //             window.location.href = 'user-index.html';
 
-                            }
-                            else {
-                                window.location.href = 'setting.html';
+                    //         }
+                    //         else {
+                    //             window.location.href = 'setting.html';
 
-                            }
-                        }
-                    })
-                    // 自动跳转向“首页”页面
+                    //         }
+                    //     }
+                    // })
+                    // // 自动跳转向“首页”页面
                     
-                } else {
-                    alert('提示：用户名或密码有误，请重新登录！');
+                // } else {
+                //     alert('提示：用户名或密码有误，请重新登录！');
                 }
             }
-        );
+        })
+        
     });
 });

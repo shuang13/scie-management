@@ -5,6 +5,11 @@
     <title>后台登录</title>
     <!-- 登录样式 -->
     <link rel="stylesheet" href="css/login.css" />
+    <!-- 字体库 -->
+    <link rel="stylesheet" href="../../lib/font-awesome/css/font-awesome.min.css" />
+
+    <!-- jq -->
+    <script src="../../lib/jq/jquery.min.js"></script>
 </head>
 <body>
     <div class="container">
@@ -16,7 +21,8 @@
                     <input id="password" type="password" placeholder="密码" />
                     <div class="verification">
                        <input id="ver-code" type="text" placeholder="验证码" /> 
-                       <img class="ver-img" src="##" alt="">
+                       <img class="ver-img" src="" alt="">
+                       <i class="fa fa-refresh" ></i>
                     </div>
                     
                     <div class="login-submit">
@@ -26,8 +32,7 @@
             </div>
         </div>
     </div>
-    <!-- jq -->
-    <script src="../../lib/jq/jquery.min.js"></script>
+
     <!-- 登录控制 -->
     <script src="js/login.js"></script>
 
