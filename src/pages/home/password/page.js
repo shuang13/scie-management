@@ -1,18 +1,19 @@
 var user = require('../../commons/common.js');
 var my_id = user.session.getUserId;
+var my_username = user.session.getLoginState();
+
 // 表单提交
 user.submit = function () {
     event.preventDefault();
     var ajaxArgs = {
-        my_username: my_id,
+        my_username: my_username,
         my_password: $('#password').val(),
         my_new_password: $('#new_password').val(),
         my_repeat_new_password: $('#repeat_new_password').val()
     };
-    console.log(ajaxArgs);
-    // if(!user.validate(ajaxArgs)) {
-    //     return false;
-    // }
+    if(!user.validate(ajaxArgs)) {
+        return false;
+    }
     $.ajax({
         type: 'POST',
         url: user.SERVER_URL + '/admin/update/password',
@@ -21,15 +22,18 @@ user.submit = function () {
         }),
         data: ajaxArgs,
         success: function(data){
+
             if(typeof data === 'string') {
                 data = JSON.parse(data);
             }
+            var message = data.message;
+
             var status = data.code;//状态码
             if(status == 200) {
                 $('.jq-notice-context').html('提交成功!');
                 setTimeout('window.location.href = "../index/page.html"',2000); 
             } else {
-                $('.jq-notice-context').html('提交失败!');
+                $('.jq-notice-context').html('提交失败,' + message + '!');
             }
         }
     });
@@ -42,13 +46,15 @@ user.update = function(data) {
     $('#last-time').html(lastTime.toLocaleString());
 }
 user.validate = function (ajaxArgs) {
-
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.title)) {
+    if ($.trim(ajaxArgs.my_password) == '') {
         $.notice("提示！", "内容不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.url)) {
+    if ($.trim(ajaxArgs.my_new_password) == '') {
+        $.notice("提示！", "内容不能为空！");
+        return false;
+    }
+    if ($.trim(ajaxArgs.my_repeat_new_password) == '') {
         $.notice("提示！", "内容不能为空！");
         return false;
     }

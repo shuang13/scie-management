@@ -929,8 +929,6 @@ user.update = function(data) {
         }
 
     }
-    // $('#cate-select option').eq(data.cid).attr("selected", "selected");
-    // $('#copyfrom-select option').eq(data.copyfrom).attr("selected", "selected");
 
     $('#title').val(data.title);
     $('#keywords').val(data.keywords);
@@ -951,14 +949,12 @@ user.validate = function (ajaxArgs) {
         $.notice("提示！", "英文名称为英文，且不能为空！");
         return false;
     }
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.content)) {
+    if ($.trim(ajaxArgs.content) == '') {
         $.notice("提示！", "内容不能为空！");
         return false;
     }
     return true;
 }
-
 $(document).ready(function () {
     // 获取编辑文字id
     var urlinfo = window.location.href;

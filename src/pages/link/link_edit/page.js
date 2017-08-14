@@ -9,14 +9,13 @@ user.update = function(data) {
 
 }
 // 表单验证
-user.validate = function(ajaxArgs) {
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.title)) {
-        $.notice("提示！","链接名称不能为空！");
+user.validate = function (ajaxArgs) {
+    if ($.trim(ajaxArgs.title) == '') {
+        $.notice("提示！", "内容不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.url)) {
-        $.notice("提示！","链接地址不能为空！");
+    if ($.trim(ajaxArgs.url) == '') {
+        $.notice("提示！", "内容不能为空！");
         return false;
     }
     return true;
@@ -35,8 +34,9 @@ user.submit = function (event) {
             sort: 0
     };
     // 验证
-    user.validate(updateData);
-    console.log(updateData);
+    if(!user.validate(ajaxArgs)) {
+        return false;
+    }
     // 更新
     $.ajax({
         type: 'POST',
@@ -49,13 +49,14 @@ user.submit = function (event) {
             if(typeof data === 'string') {
                 data = JSON.parse(data);
             }
+            var message = data.message;
+
             var status = data.code;//状态码
-            console.log(data);
             if(status == 200) {
                 $('.jq-notice-context').html('提交成功!');
                 setTimeout('window.location.href = "../index/page.html"',2000); 
             } else {
-                $('.jq-notice-context').html('提交失败!');
+                $('.jq-notice-context').html('提交失败,' + message + '!');
             }
         }
     });

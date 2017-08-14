@@ -8,9 +8,9 @@ user.submit = function () {
         my_realname: $('#realname').val(),
         my_email: $('#email').val()
     };
-    // if(!user.validate(ajaxArgs)) {
-    //     return false;
-    // }
+    if(!user.validate(ajaxArgs)) {
+        return false;
+    }
     console.log(ajaxArgs);
     $.ajax({
         type: 'POST',
@@ -45,13 +45,11 @@ user.update = function(data) {
     $('#realname').val(data.realname);
 }
 user.validate = function (ajaxArgs) {
-
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.title)) {
+    if ($.trim(ajaxArgs.my_realname) == '') {
         $.notice("提示！", "内容不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.url)) {
+    if ($.trim(ajaxArgs.my_email) == '') {
         $.notice("提示！", "内容不能为空！");
         return false;
     }

@@ -836,8 +836,7 @@ user.validate = function (ajaxArgs) {
         $.notice("提示！", "英文名称为英文，且不能为空！");
         return false;
     }
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.content)) {
+    if ($.trim(ajaxArgs.content) == '') {
         $.notice("提示！", "内容不能为空！");
         return false;
     }

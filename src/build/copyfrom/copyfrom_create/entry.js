@@ -772,12 +772,11 @@ user.submit = function () {
 }
 user.validate = function (ajaxArgs) {
 
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.title)) {
+    if ($.trim(ajaxArgs.title) == '') {
         $.notice("提示！", "内容不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.url)) {
+    if ($.trim(ajaxArgs.url) == '') {
         $.notice("提示！", "内容不能为空！");
         return false;
     }

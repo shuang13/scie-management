@@ -85,16 +85,13 @@ user.submit = function () {
 }
 // 表单验证
 user.validate = function (ajaxArgs) {
-    var titleCheck = /[^x00-xff]/;
-    console.log(titleCheck.test(ajaxArgs.title));
-    if (!titleCheck.test(ajaxArgs.title)) {
+    if ($.trim(ajaxArgs.title) == '') {
         $.notice("提示！", "内容不能为空！");
 
         return false;
     }
     
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.url)) {
+    if ($.trim(ajaxArgs.url) == '') {
         $.notice("提示！", "内容不能为空！");
 
         return false;

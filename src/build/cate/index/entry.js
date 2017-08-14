@@ -828,14 +828,6 @@ user.drawTable = function(data) {
             }        
         }
     }
-    // // 表格解析
-    // for(var i = 0; i < data.length; i++) {
-    //     var $tr = $('<tr data-id="' + data[i].id + '"></tr>');
-    //     for(var j = 0; j < $ths.length; j++) {
-    //         $tr.append('<td>' + data[i][$ths.eq(j).attr('data-name')] + '</td');
-    //     }
-    //     $frag.append($tr);
-    // }
     $table.find('tbody').empty().append($frag);
 };
 // 绑定操作事件

@@ -178,14 +178,14 @@ user.update = function(data) {
     $('#system-type option').eq(i).attr("selected", "selected");
 }
 // 表单验证
-user.validate = function(ajaxArgs) {
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.title)) {
-        $.notice("提示！","链接名称不能为空！");
+user.validate = function (ajaxArgs) {
+
+    if ($.trim(ajaxArgs.title) == '') {
+        $.notice("提示！", "内容不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.url)) {
-        $.notice("提示！","链接地址不能为空！");
+    if ($.trim(ajaxArgs.url) == '') {
+        $.notice("提示！", "内容不能为空！");
         return false;
     }
     return true;

@@ -752,37 +752,33 @@ user.update = function(data) {
 user.validate = function (ajaxArgs) {
 
     var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.username)) {
-        $.notice("提示！", "内容不能为空！");
+    if ($.trim(ajaxArgs.username) == '') {
+        $.notice("提示！", "用户名不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.realname)) {
-        $.notice("提示！", "内容不能为空！");
+    if ($.trim(ajaxArgs.realname) == '') {
+        $.notice("提示！", "真实姓名不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.email)) {
-        $.notice("提示！", "内容不能为空！");
-        return false;
-    }        
-    if (rCheckSpace.test(ajaxArgs.role_id)) {
-        $.notice("提示！", "内容不能为空！");
+    if ($.trim(ajaxArgs.email) == '') {
+        $.notice("提示！", "邮箱不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.password)) {
-        $.notice("提示！", "内容不能为空！");
+
+    if ($.trim(ajaxArgs.password) == '') {
+        $.notice("提示！", "密码不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.repeat_password)) {
-        $.notice("提示！", "内容不能为空！");
+    if ($.trim(ajaxArgs.repeat_password) == '') {
+        $.notice("提示！", "确认密码不能为空！");
         return false;
-    }    
+    }
     if (ajaxArgs.repeat_password != ajaxArgs.password) {
         $.notice("提示！", "确认密码不一致！");
         return false;
     }
     return true;
 }
-
 // 提交创建
 user.submit = function (event) {
     console.log();

@@ -38,12 +38,11 @@ user.update = function(data) {
 }
 // 表单验证
 user.validate = function(ajaxArgs) {
-    var rCheckSpace = /^\s+$/;
-    if (rCheckSpace.test(ajaxArgs.title)) {
+    if ($.trim(ajaxArgs.title) == '') {
         $.notice("提示！","栏目名称不能为空！");
         return false;
     }
-    if (rCheckSpace.test(ajaxArgs.url)) {
+    if ($.trim(ajaxArgs.url) == '') {
         $.notice("提示！","链接地址不能为空！");
         return false;
     }
