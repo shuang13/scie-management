@@ -12,7 +12,7 @@
 </head>
 <body>
     <form action="/SCIEManagement/admin/login" method="post">
-        <input type="text" name="username" value="wuwuwu"/><br>
+        <input type="text" name="username"/><br>
         <input type="password" name="password" /><br>
         <img id="img" src="kaptcha.jpg" name="kaptcha"/>
         <input type="text" name="verification"/><br>
