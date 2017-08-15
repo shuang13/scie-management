@@ -10,7 +10,6 @@ user.update = function(data) {
 }
 // 表单验证
 user.validate = function (ajaxArgs) {
-
     var rCheckSpace = /^\s+$/;
     if ($.trim(ajaxArgs.username) == '') {
         $.notice("提示！", "用户名不能为空！");
@@ -56,7 +55,9 @@ user.submit = function (event) {
         realname: $('#realname').val()
     };
     // 验证
-    user.validate(updateData);
+    if(!user.validate(ajaxArgs)) {
+        return false;
+    }
     console.log(updateData);
     // 更新
     $.ajax({

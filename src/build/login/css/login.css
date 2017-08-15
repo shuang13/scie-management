@@ -77,3 +77,7 @@ body {
 .fa-refresh {
     cursor: pointer;
 }
+#loading{
+    text-align: center;
+    margin-top: 50px;
+}
