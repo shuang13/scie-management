@@ -24,6 +24,8 @@
         <servlet-name>SCIE</servlet-name>
         <url-pattern>/</url-pattern>
         <url-pattern>*.jpg</url-pattern>
+        <url-pattern>*.css</url-pattern>
+        <url-pattern>*.js</url-pattern>
         <!--<url-pattern>/SCIEManagement/*/kaptcha.jpg</url-pattern>-->
         <!--<url-pattern>kaptcha.jpg</url-pattern>
         <url-pattern>/js/*</url-pattern>
@@ -39,6 +41,9 @@
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
+    <listener>
+        <listener-class>com.SCIEManagement.filter.SessionListener</listener-class>
+    </listener>
 
     <context-param>
         <param-name>webAppRootKey</param-name>
@@ -51,8 +56,8 @@
     <!--<welcome-file>/auth/login</welcome-file>-->
     <!--</welcome-file-list>-->
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
-        <welcome-file>login.html</welcome-file>
+        <welcome-file>asset/build/login/login.jsp</welcome-file>
+        <welcome-file>asset/build/login/login.html</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>Kaptcha</servlet-name>
@@ -84,7 +89,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Kaptcha</servlet-name>
-        <url-pattern>/kaptcha.jpg</url-pattern>
+        <url-pattern>/kk/kaptcha.jpg</url-pattern>
     </servlet-mapping>
 
     <filter>

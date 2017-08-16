@@ -28,11 +28,6 @@
           p:defaultEncoding="UTF-8"
           p:maxUploadSize="5242880"
     />
-
-
     <aop:aspectj-autoproxy proxy-target-class="true" />
-
-
-
 
 </beans>
