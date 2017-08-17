@@ -52,7 +52,7 @@ body {
 .ver-img {
     display: inline-block;
     vertical-align: middle;
-    width: 120px;
+    margin-left: 50px;
 }
 .login-submit {
     margin: 20px auto;
