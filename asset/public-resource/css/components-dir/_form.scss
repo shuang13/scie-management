@@ -1,0 +1,94 @@
+.main .search input{
+    padding: 6px 12px;
+    height: 34px;
+    font-size: 14px;
+}
+.main .search select{
+    padding: 6px 12px;
+
+}
+input, select, textarea{
+    border: 1px solid #ccc;
+}
+input:focus, select:focus, textarea:focus{
+    border: 1px solid #66BAF6;
+    outline: none;
+}
+.main .option{
+    line-height:45px; 
+}
+.form-label{
+    display: inline-block;
+    margin-right: 10px;
+    width: 140px;
+    text-align: right;
+}
+input, select, textarea{
+    border: 1px solid #ccc;
+}
+input:focus, select:focus, textarea:focus{
+    border: 1px solid #66BAF6;
+    outline: none;
+}
+.option input[type="text"], .option input[type="password"]{
+    padding: 6px 12px;
+    height: 34px;
+    font-size: 14px;
+}
+.option input[type="radio"]{
+    margin: 0 10px;
+}
+.option input[type="checkbox"]{
+    margin: 0 10px;
+}
+.option select{
+    padding: 6px 12px;
+
+}
+.option textarea{
+    padding: 6px 10px;
+    width: 460px;
+    height: 60px;
+    vertical-align: text-top;
+    resize: none;
+}
+.option .wrapper{
+    display: inline-block;
+    width: 650px;
+}
+.option span{
+    display: inline-block;
+
+}
+.editor-box{
+    margin: -30px 0 0 155px;
+}
+#editor_id{
+    width: 700px;
+    height: 600px;
+}
+.cover-img{
+    vertical-align: text-top;
+    width: 180px;
+    height: 125px;
+}
+.cover{
+    display: inline-block;
+        .buttonText{
+        outline: none;
+        cursor: pointer;
+    }
+    .form-control{
+        cursor: not-allowed;
+    }
+}
+#file-cover{
+    border: 0;
+}
+.option .system-value {
+    padding: 6px 10px;
+    width: 350px;
+    height: 60px;
+    vertical-align: text-top;
+    resize: none;
+}

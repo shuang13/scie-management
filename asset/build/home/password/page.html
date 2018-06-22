@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>后台管理系统</title>
+    <!-- 字体图标库 -->
+    <link rel="stylesheet" href="../../../lib/font-awesome/css/font-awesome.min.css">
+    <!-- 弹窗插件样式 -->
+    <link rel="stylesheet" href="../../../lib/notice/css/jquery.notice.css">
+    <!-- 分页条插件样式 -->
+    <link rel="stylesheet" href="../../../lib/jqueryPagination/css/jquery.pagination.css">
+    <!-- 时间选择器样式 -->
+    <!-- 默认 -->
+    <!-- <link rel="stylesheet" href="../../../lib/flatpickr/themes/base16_flat.css"> -->
+
+    <!-- 黑色 -->
+    <!-- <link rel="stylesheet" href="../../../lib/flatpickr/themes/dark.css.css"> -->
+    
+    <!-- 蓝色 -->
+    <link rel="stylesheet" href="../../../lib/flatpickr/themes/material_blue.css">
+
+    <!-- jq库 -->
+    <script src="../../../lib/jq/jquery.min.js"></script>
+    <!-- 文件上传插件 -->
+    <script src="../../../lib/ajaxfileupload/ajaxfileupload.js"></script>
+    <!-- 文件上传按钮样式插件 -->
+    <script src="../../../lib/ajaxfileupload/bootstrap-filestyle.min.js"></script>
+
+</head>
+<body>
+    <header>
+        <div class="top-bar">
+            <ul class="top-nav-left">
+                <li><a href="../../home/index/page.html">网站首页</a></li>
+                <li><a href="##">全站更新</a></li>
+            </ul>
+            <div class="top-nav-right">
+                <div class="dropdown-toggle">
+                    您好，<span id="current_username"></span><span class="tri"></span>
+                </div>
+                <ul class="user-nav">
+                    <li><a href="../../home/password/page.html">修改密码</a></li>
+                    <li><a href="../../home/index/page.html">修改个人信息</a></li>
+                    <li><a id="logout" href="##">退出系统</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+<div id="sidebar">
+    <div class="logo">
+        
+    </div>
+    <ul class="side-nav">
+        <li><a href="../../cate/index/page.html">栏目管理</a></li>
+        <li><a href="../../configManage/index/page.html?group=1">配置管理</a></li>
+        <li><a href="../../configSetting/index/page.html?group=1">配置设置</a></li>
+        <li><a href="../../copyfrom/index/page.html">来源管理</a></li>
+        <li><a href="../../user/index/page.html">管理员管理</a></li>
+        <li><a href="../../docManage/index/page.html">内容管理</a></li>
+        <li><a href="../../link/index/page.html">友情链接</a></li>
+    </ul>
+</div>
+<div id="content">
+            <div class="page-header">
+            <p>用户设置</p>
+        </div>
+        <ul class="page-nav">
+           <li><a href="../../home/index/page.html">修改个人资料</a></li>
+           <li><a class="nav-active" href="../../home/password/page.html">修改密码</a></li>
+        </ul>
+        <div class="main"> 
+            <form action="##">
+                <div class="option">
+                    <label class="form-label" for="username">用户名:</label>
+                    <span id="username"></span>
+                </div>
+                <div class="option">
+                    <label class="form-label" for="last-time">最后登录时间:</label>
+                    <span id="last-time"></span>
+                </div>
+                <div class="option">
+                    <label class="form-label" for="last-ip">最后登录IP:</label>
+                    <span id="last-ip"></span>
+                </div>
+                <div class="option">
+                    <label class="form-label" for="password">原密码:</label>
+                    <input id="password" type="password">                
+                </div>
+                <div class="option">
+                    <label class="form-label" for="new-password">新密码:</label>
+                    <input id="new_password" type="password">
+                </div>
+                <div class="option">
+                    <label class="form-label" for="repeat_new_password">确认新密码:</label>
+                    <input id="repeat_new_password" type="password">
+                </div>
+                <div class="option">
+                    <button class="btn-submit" type="submit">修改</button>
+                </div>
+            </form>            
+        </div>
+
+</div>
+    <!-- 富文本编辑器 -->
+    <script charset="utf-8" src="../../../lib/kindeditor/kindeditor-all-min.js"></script>
+    <script charset="utf-8" src="../../../lib/kindeditor/lang/zh_CN.js"></script>
+    <!-- 时间选择器插件 -->
+    <script src="../../../lib/flatpickr/flatpickr.min.js"></script>
+    <!-- 弹窗插件 -->
+    <script src="../../../lib/notice/jquery.notice.js"></script>
+    <!-- 分页条插件 -->
+    <script src="../../../lib/jqueryPagination/js/jquery.pagination.min.js"></script>
+
+<script type="text/javascript" src="../../home/password/entry.730dcbbbd8836ecac701.js"></script></body>
+</html>

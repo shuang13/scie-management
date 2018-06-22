@@ -1,0 +1,58 @@
+        <div class="page-header">
+            <p>配置编辑</p>
+        </div>
+        <ul class="page-nav">
+           <li><a href="../index/page.html?group=1">站点配置</a></li>
+           <li><a href="../index/page.html?group=2">系统配置</a></li>
+           <li><a href="../index/page.html?group=3">内容配置</a></li>
+           <li><a href="../index/page.html?group=4">用户配置</a></li>
+           <li><a href="../index/page.html?group=5">附件配置</a></li>
+           <li><a href="../index/page.html?group=6">模块配置</a></li>
+           <li><a href="../index/page.html?group=7">其他配置</a></li>
+           <li><a href="page.html">添加配置</a></li>
+        </ul>
+        <div class="main"> 
+            <form action="##">
+                <div class="option">
+                    <p class="form-label">配置名称:</p>
+                    <input type="text" id="system-name">
+                </div>
+                <div class="option">
+                    <p class="form-label">配置标题:</p>
+                    <input type="text" id="system-title">
+                </div>
+                <div class="option">
+                    <p class="form-label">配置类型:</p>
+                    <select id="system-type">
+                        <option value="number">数字</option>
+                        <option value="text">文本</option>
+                        <option value="textarea">多行文本</option>
+                        <option value="boolean">布尔</option>
+                        <option value="array">数组</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <p class="form-label">配置分组:</p>
+                    <select id="system-group">
+                        <option value="1" selected="selected">站点配置</option>
+                        <option value="2">系统配置</option>
+                        <option value="3">内容配置</option>
+                        <option value="4">用户配置</option>
+                        <option value="5">附件配置</option>
+                        <option value="6">模块配置</option>
+                        <option value="7">其他配置</option>
+                    </select>
+                </div>
+                <div class="option">
+                    <p class="form-label">配置值:</p>
+                    <textarea id="system-value"></textarea>
+                </div>
+                <div class="option">
+                    <p class="form-label">说明:</p>
+                    <textarea id="system-remark"></textarea>
+                </div>
+                <div class="option">
+                    <button class="btn-submit" type="submit">确认修改</button>
+                </div>
+            </form>            
+        </div>

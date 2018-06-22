@@ -1,0 +1,72 @@
+        <div class="page-header">
+            <p>编辑内容</p>
+        </div>
+        <ul class="page-nav">
+           <li><a href="../index/page.html">内容管理</a></li>
+           <li><a href="../doc_create/page.html">添加内容</a></li>
+        </ul>
+        <div class="main"> 
+            <form action="##">
+                <div class="option">
+                    <label class="form-label">封面图片</label>
+                    <img class="cover-img" > 
+                </div>
+                <div class="option">
+                    <p class="form-label">选择封面图</p>
+                    <div class="cover">
+                        <input type="file" id="file-cover" name="file-cover">
+                    </div>
+                </div>
+                <div class="option">
+                    <!-- 时间选择器 -->
+                    <p class="form-label">选择时间</p>
+                    <input type="text" id="time-pick">
+                </div>
+
+            </form>
+            <form action="##">
+                <div class="option">
+                    <p class="form-label">栏目:</p>
+                    <select id="cate-select">
+                        <option value="" selected="selected">加载中...</option>
+
+                    </select>
+                </div>
+                <div class="option">
+                    <p class="form-label">标题:</p>
+                    <input type="text" id="title">
+                </div>
+                <div class="option">
+                    <p class="form-label">关键词:</p>
+                    <input type="text" id="keywords">
+                </div>
+                <div class="option">
+                    <p class="form-label">摘要:</p>
+                    <textarea name="description" id="description"></textarea>
+                </div>
+                <div class="option">
+                    <p class="form-label">来源:</p>
+                    <select id="copyfrom-select">
+                        <option value="" selected="selected">选择来源</option>
+                    </select>
+                </div>
+                 <!-- 富文本编辑器 http://kindeditor.net/docs/usage.html-->
+                <div class="option">
+                    <p class="form-label">内容:</p>
+                    <div class="editor-box">
+                        <textarea id="editor_id" name="content">
+                            &lt;strong&gt;HTML内容&lt;/strong&gt;
+                        </textarea>
+                    </div>
+                </div>
+                <div class="option">
+                    <p class="form-label">推荐位:</p>
+                    <input type="checkbox" value="1" name="position">网站首页推荐
+                    <input type="checkbox" value="2" name="position">首页图片推荐 
+                    <input type="checkbox" value="4" name="position">首页焦点推荐
+                </div>
+                <div class="option">
+                    <button class="btn-submit" type="submit">确认修改</button>
+                </div>
+            </form>            
+        </div>
